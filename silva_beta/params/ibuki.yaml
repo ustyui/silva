@@ -1,0 +1,8 @@
+Config:
+  robotname: ibuki
+  driveunits: 50
+
+Rates:
+  broadcast: 2
+  fusion: 40
+  jointinterface: 50
