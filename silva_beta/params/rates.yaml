@@ -1,0 +1,5 @@
+--- # ros rates
+Broadcast: 2
+Fusion: 40
+JointInterface: 50
+---
