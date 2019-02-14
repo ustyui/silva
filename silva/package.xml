@@ -15,6 +15,7 @@
   <exec_depend>silva_beta</exec_depend>
   <exec_depend>ibuki_extra</exec_depend>
   <exec_depend>korg_nanokontrol</exec_depend>
+  <exec_depend>usb_cam</exec_depend>
 
   <export>
     <metapackage/>
