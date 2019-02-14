@@ -1,6 +1,7 @@
 Config:
   robotname: ibuki
   driveunits: 50
+  mbedstacks: 5
 
 Rates:
   auto: 30
@@ -42,5 +43,19 @@ PORT:
   neck: 10016
   hip: 10017
   wheel: 10018
-  wheel2: 10019
+  wheelf: 10019
   executor: 10099
+
+SequenceOfJoints:
+  neck: 0
+  arml: 1
+  armr: 2
+  handl: 3
+  handr: 4
+  headl: 5
+  headc: 6
+  headr: 7
+  hip: 8
+  wheel: 9
+
+
