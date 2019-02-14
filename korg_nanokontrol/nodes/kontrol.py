@@ -7,7 +7,7 @@
 
 import rospy
 import sys
-from korg_nanokontrol.korg import KorgNanoKontrol
+from korg import KorgNanoKontrol
 
 if __name__ == '__main__':
     # start node
