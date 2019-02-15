@@ -51,7 +51,7 @@ class neck():
         self._pub_msg = Evans()
         
         # publishers
-        self.pub = rospy.Publisher('/silva/idle_local/intention', Evans, queue_size=10)
+        self.pub = rospy.Publisher('/silva/idle_local/ch0', Evans, queue_size=10)
         self.pub_a = rospy.Publisher('/silva/auto_local/ch0', Evans, queue_size = 10)
         self.pub_b = rospy.Publisher('/silva/reflex_local/ch0', Evans, queue_size=10)
         # subscribers
@@ -151,12 +151,12 @@ class neck():
         # make message
         self._pub_msg.header.stamp = rospy.Time.now()
         self._pub_msg.seq = seq # neck motion
-        self._pub_msg.name = 'headc'
+        self._pub_msg.name = 'headl'
         self._pub_msg.msgid = msgid
         self._pub_msg.payload = payload
         
     def start(self):
-        rospy.loginfo("HEADCIDLE")
+        rospy.loginfo("HEADLIDLE")
         
         loop_rate = rospy.Rate(_RATE)
         
@@ -168,19 +168,19 @@ class neck():
     
         move_shoulderr = threading.Thread(target = self.neck_idle, args = \
         (3, 0, run_event))
-        move_shoulderl = threading.Thread(target = self.neck_idle, args = \
-        (3, 1, run_event))
-        move_yaw = threading.Thread(target = self.neck_idle, args = \
-        (3, 2, run_event))
-#        move_roll = threading.Thread(target = self.neck_idle, args = \
-#        (3, 3, run_event))
+#        move_shoulderl = threading.Thread(target = self.neck_idle, args = \
+#        (3, 1, run_event))
+#        move_yaw = threading.Thread(target = self.neck_idle, args = \
+#        (3, 2, run_event))
+        move_roll = threading.Thread(target = self.neck_idle, args = \
+        (3, 3, run_event))
         move_pitch = threading.Thread(target = self.neck_idle, args = \
         (3, 4, run_event))
         
         move_shoulderr.start()
-        move_shoulderl.start()
-        move_yaw.start()
-#        move_roll.start()
+#        move_shoulderl.start()
+#        move_yaw.start()
+        move_roll.start()
         move_pitch.start()
         
         
@@ -197,10 +197,10 @@ class neck():
 #                self.pub_s.publish(self._pub_msg)
             
             self._payload[0] = int(2*self._neck[0])
-            self._payload[1] = int(2*self._neck[1])
-            self._payload[2] = int(1.3*self._neck[2])
-            self._payload[3] = int(1.3*self._neck[2])
-            self._payload[4] = int(1.3*self._neck[4])
+#            self._payload[1] = int(2*self._neck[1])
+#            self._payload[2] = int(2*self._neck[2])
+            self._payload[3] = int(abs(1.3*self._neck[3]))+10
+            self._payload[4] = int(-abs(1.3*self._neck[4]))
             
             self.make_message(1,1,self._payload)
             self.pub.publish(self._pub_msg)              
@@ -216,7 +216,7 @@ class neck():
 if __name__ == "__main__":
     neckmotion = neck()
     
-    nh = rospy.init_node("headc_idlemotion")
+    nh = rospy.init_node("headl_idlemotion")
     
     neckmotion.start()
             
