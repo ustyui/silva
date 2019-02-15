@@ -1,0 +1,11 @@
+<launch>
+
+	<node name="EYE_IDLEGEN" pkg="ibuki_extra" type="blink.py" />
+	<node name="NECK_IDLEGEN" pkg="ibuki_extra" type="neck.py" />
+	<node name="ARML_IDLEGEN" pkg="ibuki_extra" type="arml.py" />
+	<node name="ARMR_IDLEGEN" pkg="ibuki_extra" type="armr.py" />
+	<node name="HEADR_IDLEGEN" pkg="ibuki_extra" type="headr.py" />
+	<node name="HEADC_IDLEGEN" pkg="ibuki_extra" type="headc.py" />
+	<node name="HEADL_IDLEGEN" pkg="ibuki_extra" type="headl.py" />
+
+</launch>
