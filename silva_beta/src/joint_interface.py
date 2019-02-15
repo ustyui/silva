@@ -15,16 +15,14 @@ import transformations as tform
 
 import numpy as np
 import socket, errno
-import sys, yaml
+import sys
 import threading
 
-# read parameters
-rospack = rospkg.RosPack()
-param_path = rospack.get_path('silva_beta')+'/params/ibuki.yaml'
-f = open(param_path, "r+")
-param_config = yaml.load(f)
+### read parameters ###
+param_config = tform.read_param()
 
 seq_of_jointname = param_config['SequenceOfJoints']
+_RATE = param_config['Rates']['jointinterface']
 ip = param_config['IP']
 port = param_config['PORT']
 
@@ -75,7 +73,7 @@ class Joint():
 
 def mbed_cb(_sock, _sockb, _str, run_event, cls):
     # send hello
-    rate = rospy.Rate(50)
+    rate = rospy.Rate(_RATE)
     _flag = 0
     # which device?
     if dev_name == 'arml':
@@ -131,7 +129,7 @@ if __name__ == "__main__":
     cur_client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)    
     
     rospy.init_node('JI_'+dev_name, anonymous = True)
-    rate = rospy.Rate(50)
+    rate = rospy.Rate(_RATE)
     
 
     

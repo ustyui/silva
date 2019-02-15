@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import rospy, rospkg
+import rospy, rospkg, yaml
 _driveunits = 50 # 50 is ibuki driveunits number
 
 """
@@ -179,5 +179,19 @@ def load_map(_which = 'ibuki'):
             pass
             
     return params_valuea, params_valueb
+    
+#==============================================================================
+# LOAD PARAMS
+# read from .yaml file
+
+#==============================================================================   
+def read_param(_name = 'ibuki'):
+    rospack = rospkg.RosPack()
+    param_path = rospack.get_path('silva_beta')+'/params/'+_name+'.yaml'
+    f = open(param_path, "r+")
+    param_config = yaml.load(f)
+    
+    return param_config
+
         
 _version = "2019"

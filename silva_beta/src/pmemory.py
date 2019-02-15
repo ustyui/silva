@@ -17,18 +17,21 @@ import rospkg
 from silva_beta.msg import Evans
 from std_msgs.msg import Float32MultiArray
 
-import sys, threading
+import sys, threading, yaml
 
 import numpy as np
 
 import transformations as tform
 
 from sensor_msgs.msg import Joy
+
+### read parameters ###
+param_config = tform.read_param()
+
 ### environment variables ###
 
-_RATE = 40  # ros rate
-dev_name = 'ibuki'
-
+_RATE = param_config['Rates']['fusion']  # ros rate
+dev_name = param_config['Config']['robotname'] # ibuki
 
 ### pose memory ###
 
@@ -80,13 +83,10 @@ class pose():
         
         # publishers
         
-        # publishers are devided into 2 parts,
-        # /fusion used to publish fusion to joint interface,
-        # /default used to publish the default value to 5 blocks.
-        self.pub = rospy.Publisher('/silva/joint_local/fusion', Evans, queue_size=10) 
+        self.pub = rospy.Publisher('/silva/joint_local/fusion', Evans, queue_size=20) 
         
         self.pub_d = rospy.Publisher('/silva/joint_local/default', Evans, queue_size=10) 
-        self.pub_c = rospy.Publisher('/silva/states', Float32MultiArray, queue_size = 10)
+        self.pub_c = rospy.Publisher('/silva/states', Float32MultiArray, queue_size = 20)
         
         # subscribers
         self.sub_idle = rospy.Subscriber('/silva/joint_local/idle', Evans, self.joint_idle_cb)
@@ -97,7 +97,7 @@ class pose():
         
         ## midi subscriber nano Kontrol2
         self.sub_joy = rospy.Subscriber('/joy', Joy, self.joy_cb)
-        
+        self.sub_mask = rospy.Subscriber('/silva/joint_local/mask', Float32MultiArray, self.mask_cb)
         
             
     # read from .map file
@@ -216,6 +216,11 @@ class pose():
             self._temp = [_axes[4]+1.0, _axes[5]+1.0, _axes[6]+1.0, _axes[7]+1.0]
             if sum(self._temp) == 0.0:
                 self._temp = [0,0,1,0] # default slave, on demand
+                
+    def mask_cb(self, msg):
+        for idx in range (0,len(msg.data)):
+            if msg.data[idx] >= 0 and msg.data[idx] <= 1:
+                self._maskjoints = msg.data[idx]
         
     def fusion(self):
         
@@ -246,6 +251,8 @@ class pose():
                     value[i] = self._joint_max[i]
                 elif (value[i]< self._joint_min[i]):
                     value[i] = self._joint_min[i]
+                # get mask
+                value[i] = self._maskjoints[i]*value[i]
         
         
     def start(self):
