@@ -11,6 +11,7 @@ import rospy
 from silva_beta.msg import Evans
 
 import os, threading
+import numpy as np
 
 import transformations as tform
 ### environment variables ###
@@ -38,7 +39,7 @@ class poseblock():
         
         # global variables
         self._rel = []
-        self._bias = []
+        self._bias = [[],[],[]]
         self._payload = []
         self._default = []
         
@@ -53,9 +54,12 @@ class poseblock():
         # subscribers
         self.sub_int = rospy.Subscriber('/silva/idle_local/intention', Evans, self.intention_cb)
         self.sub_default = rospy.Subscriber('/silva/joint_local/default', Evans, self.default_cb)
+        self.sub_ch0 = rospy.Subscriber('/silva/idle_local/ch0', Evans,self.ch0_cb)
         
         tform.set_zeros(self._default)
         tform.set_zeros(self._rel)
+        for i in range(len(self._bias)):
+            tform.set_zeros(self._bias[i])
 
     ### callback functions ###
 
@@ -73,7 +77,23 @@ class poseblock():
             
             # place payload to the cut place
             for _idx in range (0, len(_payload)):
-                self._rel[_cut*5 + _idx] = _payload[_idx]
+                self._bias[0][_cut*5 + _idx] = _payload[_idx]
+    
+    def ch0_cb(self, msg):
+        self._intention = msg
+
+        # cut method : from where
+        _cut = seq_of_jointname[msg.name]
+        
+        # get the payload
+        _payload = msg.payload
+        
+        # if the msgid = 1 then to relative
+        if msg.msgid == 1:
+            
+            # place payload to the cut place
+            for _idx in range (0, len(_payload)):
+                self._bias[1][_cut*5 + _idx] = _payload[_idx]
         
     def default_cb(self, msg):
         # callback default
@@ -81,7 +101,9 @@ class poseblock():
         self._default = msg.payload
         
     def set_msg_from_pos(self):
-        # add intentions to default
+        mult_ch = np.array(self._bias)
+        self._rel = mult_ch[0] + mult_ch[1] + mult_ch[2]
+        
         self._payload = self._rel
         
     def make_message(self):
