@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <launch>
 
 	<node name="EYE_IDLEGEN" pkg="ibuki_extra" type="blink.py" />
