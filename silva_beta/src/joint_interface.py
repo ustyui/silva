@@ -8,35 +8,29 @@ Created on Tue Nov 13 11:19:56 2018
 @author: ustyui
 """
 
-import rospy
+import rospy, rospkg
 from silva_beta.msg import Evans
 
 import transformations as tform
-from config import ip, port
-import numpy as np
 
+import numpy as np
 import socket, errno
-import sys
+import sys, yaml
 import threading
 
-# TODO: change this to a file load function
-seq_of_jointname = {'neck':0,
-                    'arml':1,
-                    'armr':2,
-                    'handl':3,
-                    'handr':4,
-                    'headl':5,
-                    'headc':6,
-                    'headr':7,
-                    'hip':8,
-                    'wheel':9}
+# read parameters
+rospack = rospkg.RosPack()
+param_path = rospack.get_path('silva_beta')+'/params/ibuki.yaml'
+f = open(param_path, "r+")
+param_config = yaml.load(f)
+
+seq_of_jointname = param_config['SequenceOfJoints']
+ip = param_config['IP']
+port = param_config['PORT']
 
 # import sensor_msgs
 "-------------------------------------------------------------parameter input"
-#
 dev_name = sys.argv[1]
-#dev_name = rospy.get_param('private_name')
-#print dev_name
 
 "-------------------------------------------------------------global functions"
 def callback(msg, args):
@@ -99,16 +93,16 @@ def mbed_cb(_sock, _sockb, _str, run_event, cls):
     while run_event.is_set() and not rospy.is_shutdown():
         if _flag == 1:
             # TODO: add timeout?
-            _sock.sendto(_str, (ip(dev_name), _port))
+            _sock.sendto(_str, (ip[dev_name], _port))
             cls._position, addr_rt =  _sock.recvfrom(1024)
             cls._payload_p = tform.seperate(cls._position)
             
-            _sockb.sendto(_str, (ip(dev_name), _curt))
+            _sockb.sendto(_str, (ip[dev_name], _curt))
             cls._current, addr_rt = _sockb.recvfrom(1024)
             cls._payload_c = tform.seperateCurrent(cls._current)
             
         if _flag == 2:
-            _sock.sendto(_str, (ip(dev_name), _port))
+            _sock.sendto(_str, (ip[dev_name], _port))
             cls._position, addr_rt =  _sock.recvfrom(1024)
             cls.tmp = cls._position.split('a') # fake wheel payload
             cls._payload_w = [int(cls.tmp[1]),int(cls.tmp[2]),0,0,0]
@@ -173,7 +167,7 @@ if __name__ == "__main__":
 #---------------------------------------------------------------------------            
             try:
                 "UDP send launch"
-                motorsock.sendto(otm, (ip(dev_name), port(dev_name)))
+                motorsock.sendto(otm, (ip[dev_name], port[dev_name]))
             except socket.error as error:
                 if error.errno == errno.ENETUNREACH:
                     rospy.WARN("connection to mbed lost.")
@@ -183,17 +177,11 @@ if __name__ == "__main__":
             pub_msg = make_message(2, dev_name, 2, joint._payload_w)
             pub.publish(pub_msg)
             
-            print joint._position
-#            print joint._payload_w
-#            print pub_msg.payload
-#            print joint._payload_c
-            
-      
+#            print joint._position
+
 #---------------------------------------------------------------------------         
-
-
         rate.sleep()
 
     rospy.spin()
 
-__version = "1.0.0"
+__version = "1.0.1"
