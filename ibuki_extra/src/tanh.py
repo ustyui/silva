@@ -2,28 +2,48 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jan 10 15:21:38 2019
-neck idle function
+tanh(sigmoid) idle function
 
 @author: ustyui
 """
 
-import rospy
+import rospy, rospkg
 from silva_beta.msg import Evans
 
 import threading
 import numpy as np
 from numpy import random as rd
 from math import *
+import yaml, sys
 
-_RATE = 50
+# read params
+rospack = rospkg.RosPack()
+param_path = rospack.get_path('ibuki_extra')+'/params/mask_rsigmoid.yaml'
+f = open(param_path, "r+")
+param_config = yaml.load(f)
 
-class neck():
+# env variables
+_RATE = param_config['Rate']
+dev_name = sys.argv[1]
+
+params_dev = param_config[dev_name]
+WEIGHT_AMP = param_config[dev_name]['enable']
+
+# memory
+_sinscope = params_dev['sinscope']
+_gotoduty = params_dev['gotoduty']
+_motionamp = params_dev['motionamp']
+_plt = params_dev['periodlengthtrigger']
+_rellower = params_dev['rellower']
+_relupper = params_dev['relupper']
+_tanhamp = params_dev['tanhamp']
+
+class tanh():
     
     ### initialization ###
     def __init__(self):
         
-        self._neck = [0, 0, 0, 0, 0]
-        self._neck_slave = [0, 0, 0]
+        self._gene = [0, 0, 0, 0, 0]
         self._count = 0
         self._ct = [1, 1, 1, 1, 1]
         self._timebias = 0
@@ -46,16 +66,15 @@ class neck():
         self._pub_msg = Evans()
         
         # publishers
-        self.pub = rospy.Publisher('/silva/idle_local/intention', Evans, queue_size=10)
-        self.pub_a = rospy.Publisher('/silva/auto_local/ch0', Evans, queue_size = 10)
-        self.pub_b = rospy.Publisher('/silva/reflex_local/ch0', Evans, queue_size=10)
+        self.pub = rospy.Publisher('/silva/idle_local/ch0', Evans, queue_size=10)
+        self.pub_s = rospy.Publisher('/silva/slave_local/intention', Evans, queue_size=10)
         # subscribers
         
-    ### callback functions ###        
+    ### callback functions ###
     
     ### threading functions ###
     # _amp: time base , _sn: serial number 
-    def neck_idle(self, _amp, _sn, run_event):
+    def tanh_idle(self, _amp, _sn, run_event):
         # create a random for time
         rate = rospy.Rate(_RATE)
         while run_event.is_set() and not rospy.is_shutdown():
@@ -70,7 +89,6 @@ class neck():
                 # count to zero
                 self._ct[_sn] = 0
                 
-                _amp = 3 # for debug
                 _interval = _amp + _amp * rd.rand()
                 _randval = _interval - _amp
                 
@@ -80,7 +98,7 @@ class neck():
                 self._starttime[_sn] = _amp * rd.rand() * _RATE
                 
                 # generate sin scope, small 
-                self._sinscope[_sn] = 0.2 * rd.rand()
+                self._sinscope[_sn] = _sinscope * rd.rand()
                 "SIGN, CONTROLED BY REL"
                 sgn = np.sign(rd.rand()-0.5 - self._rel[_sn]*0.5)
                 
@@ -88,11 +106,11 @@ class neck():
                 self._nextpos[_sn] = rd.rand()
                 
                 # generate goto time
-                self._gototime[_sn] = (0.2 * _randval + 0.8*_randval*rd.rand())*_RATE
+                self._gototime[_sn] = (_gotoduty * _randval + (1-_gotoduty)*_randval*rd.rand())*_RATE
                 # goto time -> 8 factor
                 _tanhf = 8.0/self._gototime[_sn]
                 # generate next sin scope
-                self._sinscopeB[_sn] = 0.2 * rd.rand()
+                self._sinscopeB[_sn] = _sinscope * rd.rand()
                 
                 # init start position with rel
                 self._startpos[_sn] = self._rel[_sn]
@@ -116,7 +134,7 @@ class neck():
                 else:
                 
                     self._rel[_sn] = self._startpos[_sn] + sgn * \
-                    0.5*self._nextpos[_sn]*(1 + np.tanh(_tanhf*_phase - 4))
+                    _tanhamp*self._nextpos[_sn]*(1 + np.tanh(_tanhf*_phase - 4))
                     #print 'rl',self._rel[_sn]
             elif self._ct[_sn] >= (self._starttime[_sn]+self._gototime[_sn]):
                 _phase = self._ct[_sn] - self._starttime[_sn]-self._gototime[_sn]
@@ -127,25 +145,25 @@ class neck():
                                 sin(float(self._ct[_sn])/_RATE)
                 
             ## check the board
-            if self._rel[_sn] >= 1.05:
+            if self._rel[_sn] >= _relupper:
                 self._rel[_sn] = 1.0
-            if self._rel[_sn] <= -1.05:
+            if self._rel[_sn] <= _rellower:
                 self._rel[_sn] = -1.0
                 
-            self._neck[_sn] = 50*self._rel[_sn]
+            self._gene[_sn] = _motionamp*self._rel[_sn]
             rate.sleep()
         
     ### make message ###
     def make_message(self, msgid, seq, payload):
         # make message
         self._pub_msg.header.stamp = rospy.Time.now()
-        self._pub_msg.seq = seq # neck motion
-        self._pub_msg.name = 'headc'
+        self._pub_msg.seq = seq 
+        self._pub_msg.name = dev_name
         self._pub_msg.msgid = msgid
         self._pub_msg.payload = payload
         
     def start(self):
-        rospy.loginfo("HEADCIDLE")
+        rospy.loginfo(dev_name)
         
         loop_rate = rospy.Rate(_RATE)
         
@@ -155,58 +173,46 @@ class neck():
         
         # thread open
     
-        move_shoulderr = threading.Thread(target = self.neck_idle, args = \
-        (3, 0, run_event))
-        move_shoulderl = threading.Thread(target = self.neck_idle, args = \
-        (3, 1, run_event))
-        move_yaw = threading.Thread(target = self.neck_idle, args = \
-        (3, 2, run_event))
-#        move_roll = threading.Thread(target = self.neck_idle, args = \
-#        (3, 3, run_event))
-        move_pitch = threading.Thread(target = self.neck_idle, args = \
-        (3, 4, run_event))
+        move_0 = threading.Thread(target = self.tanh_idle, args = (_plt, 0, run_event))
         
-        move_shoulderr.start()
-        move_shoulderl.start()
-        move_yaw.start()
-#        move_roll.start()
-        move_pitch.start()
+        move_1 = threading.Thread(target = self.tanh_idle, args = (_plt, 1, run_event))
+        
+        move_2 = threading.Thread(target = self.tanh_idle, args = (_plt, 2, run_event))
+        
+        move_3 = threading.Thread(target = self.tanh_idle, args = (_plt, 3, run_event))
+        
+        move_4 = threading.Thread(target = self.tanh_idle, args = (_plt, 4, run_event))
+        
+        move_0.start()
+        move_1.start()
+        move_2.start()
+        move_3.start()
+        move_4.start()
         
         
         while not rospy.is_shutdown():
             
             
             ### main function ###
-            # if no input for neck , activate slave
-#            if sum(self._neck) == 0:
-#                # go joy
-#                self.joy_slave()
-#                self.make_message(3,3,self._payload)            
-#            
-#                self.pub_s.publish(self._pub_msg)
             
-            self._payload[0] = int(2*self._neck[0])
-            self._payload[1] = int(2*self._neck[1])
-            self._payload[2] = int(1.3*self._neck[2])
-            self._payload[3] = int(1.3*self._neck[2])
-            self._payload[4] = int(1.3*self._neck[4])
+            self._payload[0] = int(WEIGHT_AMP[0]*self._gene[0])
+            self._payload[1] = int(WEIGHT_AMP[1]*self._gene[1])
+            self._payload[2] = int(WEIGHT_AMP[2]*self._gene[2])
+            self._payload[3] = int(WEIGHT_AMP[3]*self._gene[3])
+            self._payload[4] = int(WEIGHT_AMP[4]*self._gene[4])
             
             self.make_message(1,1,self._payload)
-            self.pub.publish(self._pub_msg)              
-            self.make_message(4,1,self._payload)
-            self.pub_a.publish(self._pub_msg) 
-            self.make_message(2,1,self._payload)
-            self.pub_b.publish(self._pub_msg)             
+            self.pub.publish(self._pub_msg)                
             # else, do tanh/ sin move
-            print self._payload
+            print self._gene
             
             loop_rate.sleep()
             
 if __name__ == "__main__":
-    neckmotion = neck()
+    tanhmotion = tanh()
     
-    nh = rospy.init_node("headc_idlemotion")
+    nh = rospy.init_node(dev_name+"_motion")
     
-    neckmotion.start()
+    tanhmotion.start()
             
             
