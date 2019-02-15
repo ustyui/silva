@@ -26,7 +26,7 @@ roslaunch silva_beta beta.launch
 
 ### Idle Motion (Robot Side)
 ```
-roslaunch silva_beta idle.launch
+roslaunch silva_beta tanh.launch
 ```
 
 ### Midi Controller Interface (Command PC Side)
