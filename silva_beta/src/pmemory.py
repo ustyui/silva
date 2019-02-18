@@ -224,6 +224,8 @@ class pose():
         
     def fusion(self):
         
+        self._maskjoints[41] = 0
+        
         # designate means
         _sum = 2.0
         self._covs = [float(self._temp[0])/_sum, float(self._temp[1])/_sum, float(self._temp[2])/_sum, float(self._temp[3])/_sum]
@@ -231,6 +233,10 @@ class pose():
         # take means
         self._jointmeans = list(self._covs[0]*self.joint_idle+ self._covs[1]*self.joint_reflex +\
                                 self._covs[2]*self.joint_slave + self._covs[3]*self.joint_auto)
+        
+        # get mask
+        for i in range(len(self._jointmeans)):
+            self._jointmeans[i] = self._maskjoints[i]*self._jointmeans[i]
         
         self._payload = list(np.add(self._default, self._jointmeans))
         
@@ -251,8 +257,7 @@ class pose():
                     value[i] = self._joint_max[i]
                 elif (value[i]< self._joint_min[i]):
                     value[i] = self._joint_min[i]
-                # get mask
-                value[i] = self._maskjoints[i]*value[i]
+
         
         
     def start(self):
