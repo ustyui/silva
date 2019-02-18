@@ -37,6 +37,7 @@ _plt = params_dev['periodlengthtrigger']
 _rellower = params_dev['rellower']
 _relupper = params_dev['relupper']
 _tanhamp = params_dev['tanhamp']
+_threshold = params_dev['threshold']
 
 class tanh():
     
@@ -67,6 +68,7 @@ class tanh():
         
         # publishers
         self.pub = rospy.Publisher('/silva/idle_local/ch0', Evans, queue_size=10)
+        self.pub_a = rospy.Publisher('/silva/auto_local/ch0', Evans, queue_size = 10)
         self.pub_s = rospy.Publisher('/silva/slave_local/intention', Evans, queue_size=10)
         # subscribers
         
@@ -195,14 +197,17 @@ class tanh():
             
             ### main function ###
             
-            self._payload[0] = int(WEIGHT_AMP[0]*self._gene[0])
-            self._payload[1] = int(WEIGHT_AMP[1]*self._gene[1])
-            self._payload[2] = int(WEIGHT_AMP[2]*self._gene[2])
-            self._payload[3] = int(WEIGHT_AMP[3]*self._gene[3])
-            self._payload[4] = int(WEIGHT_AMP[4]*self._gene[4])
+            self._payload[0] = int(WEIGHT_AMP[0]*self._gene[0]) + _threshold[0]
+            self._payload[1] = int(WEIGHT_AMP[1]*self._gene[1]) + _threshold[0]
+            self._payload[2] = int(WEIGHT_AMP[2]*self._gene[2]) + _threshold[0]
+            self._payload[3] = int(WEIGHT_AMP[3]*self._gene[3]) + _threshold[0]
+            self._payload[4] = int(WEIGHT_AMP[4]*self._gene[4]) + _threshold[0]
             
             self.make_message(1,1,self._payload)
-            self.pub.publish(self._pub_msg)                
+            self.pub.publish(self._pub_msg)   
+            if dev_name == 'headr':
+                self.make_message(4,1,self._payload)
+                self.pub_a.publish(self._pub_msg)              
             # else, do tanh/ sin move
             print self._gene
             
