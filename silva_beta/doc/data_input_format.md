@@ -136,9 +136,9 @@ Here are some poses and corresponding value to check if you have got right mappi
 ----|----|----|----|----|----
 | _SHOULDER_RIGHT_PITCH | -0.8 | _SHOULDER_LEFT_PITCH  | -0.8 | _NECK_UNIQUE_ROLL | 0.7 |
 | _NECK_UNIQUE_YAW | 0 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0 |
-| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| 1.5 |
+| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| -1.5 |
 | _ARML_EDGE_ROLL | 0	| _ARMR_UPPER_ROLL | 0 |	_ARMR_UPPER_YAW	| 0 |
-| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | 1.5 |	_ARMR_EDGE_ROLL | 0 |
+| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | -1.5 |	_ARMR_EDGE_ROLL | 0 |
 
 ### 6234 5678 (incline the neck to the 'left', and flip the middle arm as the image shows)
 <img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9299.JPG" width="400" >
@@ -147,9 +147,9 @@ Here are some poses and corresponding value to check if you have got right mappi
 ----|----|----|----|----|----
 | _SHOULDER_RIGHT_PITCH | -0.8 | _SHOULDER_LEFT_PITCH  | -0.8 | _NECK_UNIQUE_ROLL | -0.7 |
 | _NECK_UNIQUE_YAW | 0 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0 |
-| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| -1.5 |
+| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| 1.5 |
 | _ARML_EDGE_ROLL | 0	| _ARMR_UPPER_ROLL | 0 |	_ARMR_UPPER_YAW	| 0 |
-| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | -1.5 |	_ARMR_EDGE_ROLL | 0 |
+| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | 1.5 |	_ARMR_EDGE_ROLL | 0 |
 
 ### 7234 5678 (extend the hands)
 <img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9300.JPG" width="400" >
