@@ -81,7 +81,7 @@ In the coordinate frame,
 the direction the same with the arrow (**unclockwise towards the postive axis**) is positive direction.
 In this case, you should input your value as a positive value.
 
-the direction the same with the arrow (**unclockwise towards the postive axis**) is negative direction.
+the direction the same with the arrow (**clockwise towards the postive axis**) is negative direction.
 In this case, you should input your value as a negative value.
 
 ## Check Poses
