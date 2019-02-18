@@ -84,3 +84,102 @@ In this case, you should input your value as a positive value.
 the direction the same with the arrow (**unclockwise towards the postive axis**) is negative direction.
 In this case, you should input your value as a negative value.
 
+## Check Poses
+Here are some poses and corresponding value to check if you have got right mapping relationships.
+### 1234 5678 (stand still)
+<img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9303.JPG" width="400" >
+
+| name | value |name| value|name|value|
+----|----|----|----|----|----
+| _SHOULDER_RIGHT_PITCH | 0 | _SHOULDER_LEFT_PITCH  | 0 | _NECK_UNIQUE_ROLL | 0 |
+| _NECK_UNIQUE_YAW | 0 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0 |
+| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | 0 | _ARML_MIDDLE_YAW	| 0 |
+| _ARML_EDGE_ROLL | 0	| _ARMR_UPPER_ROLL | 0 |	_ARMR_UPPER_YAW	| 0 |
+| _ARMR_MIDDLE_PITCH | 0 |	_ARMR_MIDDLE_YAW | 0 |	_ARMR_EDGE_ROLL | 0 |
+### 2234 5678 (swing the arm to the front)
+<img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9295.JPG" width="400" >
+
+| name | value |name| value|name|value|
+----|----|----|----|----|----
+| _SHOULDER_RIGHT_PITCH | -0.8 | _SHOULDER_LEFT_PITCH  | -0.8 | _NECK_UNIQUE_ROLL | 0 |
+| _NECK_UNIQUE_YAW | 0 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0 |
+| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| 0 |
+| _ARML_EDGE_ROLL | 0	| _ARMR_UPPER_ROLL | 0 |	_ARMR_UPPER_YAW	| 0 |
+| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | 0 |	_ARMR_EDGE_ROLL | 0 |
+
+### 3234 5678 (swing the arm to the 'left' and look to 'left')
+<img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9296.JPG" width="400" >
+
+| name | value |name| value|name|value|
+----|----|----|----|----|----
+| _SHOULDER_RIGHT_PITCH | -0.8 | _SHOULDER_LEFT_PITCH  | -0.8 | _NECK_UNIQUE_ROLL | 0 |
+| _NECK_UNIQUE_YAW | 0.7 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0 |
+| _ARML_UPPER_YAW	| 0.7 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| 0 |
+| _ARML_EDGE_ROLL | 0	| _ARMR_UPPER_ROLL | 0 |	_ARMR_UPPER_YAW	| 0 |
+| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | 0 |	_ARMR_EDGE_ROLL | 0 |
+
+### 4234 5678 (swing the arm to the 'right' and look to 'right')
+<img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9297.JPG" width="400" >
+
+| name | value |name| value|name|value|
+----|----|----|----|----|----
+| _SHOULDER_RIGHT_PITCH | -0.8 | _SHOULDER_LEFT_PITCH  | -0.8 | _NECK_UNIQUE_ROLL | 0 |
+| _NECK_UNIQUE_YAW | -0.7 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0 |
+| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| 0 |
+| _ARML_EDGE_ROLL | 0	| _ARMR_UPPER_ROLL | 0 |	_ARMR_UPPER_YAW	| -0.7 |
+| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | 0 |	_ARMR_EDGE_ROLL | 0 |
+
+### 5234 5678 (incline the neck to the 'right', and flip the middle arm as the image shows)
+<img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9298.JPG" width="400" >
+
+| name | value |name| value|name|value|
+----|----|----|----|----|----
+| _SHOULDER_RIGHT_PITCH | -0.8 | _SHOULDER_LEFT_PITCH  | -0.8 | _NECK_UNIQUE_ROLL | 0.7 |
+| _NECK_UNIQUE_YAW | 0 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0 |
+| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| 1.5 |
+| _ARML_EDGE_ROLL | 0	| _ARMR_UPPER_ROLL | 0 |	_ARMR_UPPER_YAW	| 0 |
+| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | 1.5 |	_ARMR_EDGE_ROLL | 0 |
+
+### 6234 5678 (incline the neck to the 'left', and flip the middle arm as the image shows)
+<img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9299.JPG" width="400" >
+
+| name | value |name| value|name|value|
+----|----|----|----|----|----
+| _SHOULDER_RIGHT_PITCH | -0.8 | _SHOULDER_LEFT_PITCH  | -0.8 | _NECK_UNIQUE_ROLL | -0.7 |
+| _NECK_UNIQUE_YAW | 0 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0 |
+| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| -1.5 |
+| _ARML_EDGE_ROLL | 0	| _ARMR_UPPER_ROLL | 0 |	_ARMR_UPPER_YAW	| 0 |
+| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | -1.5 |	_ARMR_EDGE_ROLL | 0 |
+
+### 7234 5678 (extend the hands)
+<img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9300.JPG" width="400" >
+
+| name | value |name| value|name|value|
+----|----|----|----|----|----
+| _SHOULDER_RIGHT_PITCH | -0.8 | _SHOULDER_LEFT_PITCH  | -0.8 | _NECK_UNIQUE_ROLL | 0 |
+| _NECK_UNIQUE_YAW | 0 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0 |
+| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| 0 |
+| _ARML_EDGE_ROLL | 1.0	| _ARMR_UPPER_ROLL | 0 |	_ARMR_UPPER_YAW	| 0 |
+| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | 0 |	_ARMR_EDGE_ROLL | -1.0 |
+
+### 8234 5678 (hold the hands)
+<img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9301.JPG" width="400" >
+
+| name | value |name| value|name|value|
+----|----|----|----|----|----
+| _SHOULDER_RIGHT_PITCH | -0.8 | _SHOULDER_LEFT_PITCH  | -0.8 | _NECK_UNIQUE_ROLL | 0 |
+| _NECK_UNIQUE_YAW | 0 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0 |
+| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | -1.5 | _ARML_MIDDLE_YAW	| 0 |
+| _ARML_EDGE_ROLL | -1.0	| _ARMR_UPPER_ROLL | 0 |	_ARMR_UPPER_YAW	| 0 |
+| _ARMR_MIDDLE_PITCH | -1.5 |	_ARMR_MIDDLE_YAW | 0 |	_ARMR_EDGE_ROLL | 1.0 |
+
+### 9234 5678 ()
+<img src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/CIMG9302.JPG" width="400" >
+
+| name | value |name| value|name|value|
+----|----|----|----|----|----
+| _SHOULDER_RIGHT_PITCH | 0 | _SHOULDER_LEFT_PITCH  | 0 | _NECK_UNIQUE_ROLL | 0 |
+| _NECK_UNIQUE_YAW | 0 | _NECK_UNIQUE_PITCH	| 0 | _ARML_UPPER_ROLL | 0.7 |
+| _ARML_UPPER_YAW	| 0 | _ARML_MIDDLE_PITCH | 0 | _ARML_MIDDLE_YAW	| 0 |
+| _ARML_EDGE_ROLL | 0	| _ARMR_UPPER_ROLL | -0.7 |	_ARMR_UPPER_YAW	| 0 |
+| _ARMR_MIDDLE_PITCH | 0 |	_ARMR_MIDDLE_YAW | 0 |	_ARMR_EDGE_ROLL | 0 |
