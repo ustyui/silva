@@ -8,5 +8,6 @@
 	<node name="HEADR_IDLEGEN" pkg="ibuki_extra" type="tanh.py" args="headr"/>
 	<node name="HEADC_IDLEGEN" pkg="ibuki_extra" type="headc.py" />
 	<node name="HEADL_IDLEGEN" pkg="ibuki_extra" type="tanh.py" args="headl"/>
+	<node name="HIP_IDLEGEN" pkg="ibuki_extra" type="hip.py" args="hip"/>
 
 </launch>
