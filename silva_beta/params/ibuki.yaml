@@ -44,7 +44,27 @@ PORT:
   hip: 10017
   wheel: 10018
   wheelf: 10019
+  handlp: 11006
+  handrp: 11007
+  headlp: 11011
+  headcp: 11012
+  headrp: 11013
+  armlp: 11014
+  armrp: 11015
+  neckp: 11016
+  hipp: 11017
+  handlc: 12006
+  handrc: 12007
+  headlc: 12011
+  headcc: 12012
+  headrc: 12013
+  armlc: 12014
+  armrc: 12015
+  neckc: 12016
+  hipc: 12017
+  
   executor: 10099
+  
 
 SequenceOfJoints:
   neck: 0
