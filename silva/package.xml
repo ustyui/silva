@@ -18,6 +18,7 @@
   <exec_depend>usb_cam</exec_depend>
   <exec_depend>rt_usb_9axisimu_driver</exec_depend>
   <exec_depend>rplidar_ros</exec_depend>
+  <exec_depend>respeaker_ros</exec_depend>
 
   <export>
     <metapackage/>
