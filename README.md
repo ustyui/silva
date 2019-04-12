@@ -5,10 +5,6 @@ master branch:[![Build Status](https://travis-ci.org/ustyui/silva.svg?branch=mas
 
 ## Usage
 The silva android operation framework generates android motion by using a developed framework by merging multiple motion generator models.
-## Dependencies
-- [ROS](http://www.ros.org)
-- Catkin workspace
-- Pandas
 
 ## Building 
 ```
@@ -16,7 +12,7 @@ cd ~/some_path
 git clone https://github.com/ustyui/silva.git
 cd ~/catkin_ws
 ln -s ~/some_path/silva ~/catkin_ws/src/silva
-cd ~/catkin_ws/src/silva/src/
+cd ~/catkin_ws/src/silva/
 ./installdependencyXavier.sh
 catkin_make
 ```
