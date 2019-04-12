@@ -16,6 +16,8 @@ cd ~/some_path
 git clone https://github.com/ustyui/silva.git
 cd ~/catkin_ws
 ln -s ~/some_path/silva ~/catkin_ws/src/silva
+cd ~/catkin_ws/src/silva/src/
+./installdependencyXavier.sh
 catkin_make
 ```
 ## How to Use
