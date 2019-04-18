@@ -32,6 +32,9 @@ if [ "$JETSON_BOARD" == "AGX Xavier" ] ; then
   # install the dependencies of respeaker
   cd $ROS_WORKSPACE
   rosdep install --from-paths src -i -r -n -y
+  cd $INSTALL_DIR/respeaker_ros/cfg
+  sudo chmod u+x *.cfg
+  cd $ROS_WORKSPACE
   catkin_make
   # restart bashrc
   source ~/.bashrc
