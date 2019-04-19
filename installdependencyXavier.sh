@@ -18,11 +18,12 @@ echo "$JETSON_DESCRIPTION"
 # Error out if something is wrong
 set -e
 
-# Add armhf architecture for AITalk
+# Add armhf architecture and java package for AITalk
 sudo dpkg --add-architecture armhf
 sudo apt-get update
 sudo apt-get install libc6:armhf libncurses5:armhf libstdc++6:armhf  
 sudo apt-get install nkf
+sudo apt-get install ant
 
 if [ "$JETSON_BOARD" == "AGX Xavier" ] ; then 
   # install respeaker pre-dependencies
