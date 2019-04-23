@@ -65,6 +65,8 @@ class Joint():
         self._position = ''
         self._current = ''
         self._pub_msg = Evans()
+        self._pub_msg_p = Evans()
+        self._pub_msg_c = Evans()
         
         self.tmp = [0,0,0,0,0]
         
@@ -77,13 +79,11 @@ def mbed_cb(_sock, _sockb, _str, run_event, cls):
     _flag = 0
     # which device?
     if dev_name == 'arml':
-        _port = 10023
-        _curt = 10300
-        _flag = 0
-    elif dev_name == 'armr':
-        _port = 10022
-        _curt = 10200
-        _flag = 0
+        _port = 11014
+        _flag = 1
+#    elif dev_name == 'armr':
+#        _port = 10022
+#        _flag = 0
     elif dev_name == 'wheel':
         _port = 10019
         _flag = 2
@@ -92,12 +92,22 @@ def mbed_cb(_sock, _sockb, _str, run_event, cls):
         if _flag == 1:
             # TODO: add timeout?
             _sock.sendto(_str, (ip[dev_name], _port))
-            cls._position, addr_rt =  _sock.recvfrom(1024)
-            cls._payload_p = tform.seperate(cls._position)
+            cls._position, addr_rt =  _sock.recvfrom(4096)
             
-            _sockb.sendto(_str, (ip[dev_name], _curt))
-            cls._current, addr_rt = _sockb.recvfrom(1024)
-            cls._payload_c = tform.seperateCurrent(cls._current)
+            templist = []
+            templista = []
+            
+            # split the position and curretn
+            pac = cls._position.split(',')
+            p_pos = pac[0].split()
+            p_cur = pac[1]
+
+            for elements in p_pos:
+                templista.append(int(int(elements)/10))
+            cls._payload_p = templista
+            for index in range(0,5):
+                templist.append(int(p_cur[index*5:(index+1)*5]))
+            cls._payload_c = templist
             
         if _flag == 2:
             _sock.sendto(_str, (ip[dev_name], _port))
@@ -142,8 +152,9 @@ if __name__ == "__main__":
     
     sub = rospy.Subscriber('/silva/joint_local/fusion', Evans, callback, joint)
     
-    pub = rospy.Publisher('/silva/reflex_local/feedback', Evans, queue_size=10)
-    
+    pub = rospy.Publisher('/silva/reflex_local/feedback', Evans, queue_size =10)
+    pub_p = rospy.Publisher('/silva/reflex_local/ch0', Evans, queue_size=10)
+    pub_c = rospy.Publisher('/silva/reflex_local/ch1', Evans, queue_size=10)
     
     
     "thread"    
@@ -166,6 +177,8 @@ if __name__ == "__main__":
             try:
                 "UDP send launch"
                 motorsock.sendto(otm, (ip[dev_name], port[dev_name]))
+                
+                
             except socket.error as error:
                 if error.errno == errno.ENETUNREACH:
                     rospy.WARN("connection to mbed lost.")
@@ -175,7 +188,12 @@ if __name__ == "__main__":
             pub_msg = make_message(2, dev_name, 2, joint._payload_w)
             pub.publish(pub_msg)
             
-#            print joint._position
+        # make some message
+        tform.make_message(joint._pub_msg_p,2,dev_name,3, joint._payload_p)
+        tform.make_message(joint._pub_msg_c,2,dev_name,4, joint._payload_c)
+        
+        pub_p.publish(joint._pub_msg_p)
+        pub_c.publish(joint._pub_msg_c)
 
 #---------------------------------------------------------------------------         
         rate.sleep()
