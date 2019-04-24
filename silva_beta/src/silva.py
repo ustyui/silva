@@ -120,6 +120,21 @@ class MainWindow(QMainWindow):
         rospack = rospkg.RosPack()
         self.picpath = rospack.get_path('silva_beta')+'/src/assets/logo.png'
         
+        # object init
+        self.sld = []        
+        self.sldh = [] #high: highest limit
+        self.sldl = [] #low: lowest limit
+        self.sldn = [] #now: current value
+
+        tform.set_zeros(self.sld)
+        tform.set_zeros(self.sldh)
+        tform.set_zeros(self.sldl)
+        tform.set_zeros(self.sldn)
+
+        self.progress = [0,0,0,0,0]    
+        
+        self.index =0
+        
         # speech
         self._contents = ''
         
@@ -131,12 +146,16 @@ class MainWindow(QMainWindow):
         self.title = 'silva'
         self.left = 300
         self.top = 50
-        self.width = 1024
+        self.width = 1366
         self.height = 768
         
         self.initUI()
         
+        # param        
+        self.state = [0.0, 0.0, 0.5, 0.0]
+        
     def initUI(self):
+        
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height) #1024*768
         
@@ -168,6 +187,18 @@ class MainWindow(QMainWindow):
         label3.resize(491,20)
         label3.move(self.width-350,self.height-40)
         
+        label4 = QLabel('Idle', self)
+        label4.move(33, 175)
+        
+        label5 = QLabel('Reflex', self)
+        label5.move(33, 205)
+        
+        label6 = QLabel('Slave', self)
+        label6.move(33, 235)
+
+        label7 = QLabel('Auto', self)
+        label7.move(33, 265)        
+        
         # Create textbox
         self.textbox = QLineEdit(self)
         self.textbox.move(20, 60)
@@ -179,7 +210,29 @@ class MainWindow(QMainWindow):
         button.move(110,110)
         button.clicked.connect(self.on_click)
         
-        # Create Button groups
+        # Create progressbar
+        for index in range(0,4):
+            self.progress[index] = QProgressBar(self)
+            self.progress[index].setGeometry(100,180+index*30,180,20)
+            self.progress[index].valueChanged[int].connect(self.changeValue)
+        
+        # Create Sliders
+        ## head group
+        ### Note: The qt slider only generate from 0 to 99, so an external .conf file of the upper lower limit of joints is needed to judge the real output of the sliders
+        for self.index in range(0,10):
+            self.sld[self.index] = QSlider(Qt.Horizontal, self)
+            self.sld[self.index].setFocusPolicy(Qt.NoFocus)
+            self.sld[self.index].setGeometry(400,60+self.index*40,100,30)
+            self.sld[self.index].setTickPosition(QSlider.TicksBothSides)
+            self.sld[self.index].setValue(50)
+            self.sld[self.index].valueChanged[int].connect(self.changeValue)
+            ### labels
+            self.sldn[self.index] = QLabel(str(0),self)
+            self.sldn[self.index].move(500,60+self.index*40)
+        
+        ## neck, arm(above)
+        
+        ## arm(down), hands, hip
         
         
         ## Menu buttons
@@ -189,6 +242,10 @@ class MainWindow(QMainWindow):
         helpbutton1.triggered.connect(lambda: self.link_to('https://github.com/ustyui/silva'))
         helpMenu.addAction(helpbutton1) 
         
+    def changeValue(self, value):
+        realvalue = value - 50
+        self.sldn[self.index].setText(str(realvalue))
+        print value
 
     @pyqtSlot()
     def on_click(self):
@@ -199,6 +256,9 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def link_to(self, url):
         webbrowser.open(url)
+#    
+#    def download(self):
+#        self.progress3.setValue(self.state[2])
         
         
         
