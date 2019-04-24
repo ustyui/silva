@@ -2,7 +2,7 @@
   <img width="191" src="/ibukiDEVGuide/assets/images/logo.png">
 </p>
 
-**Silva** is an android operation framework generates **natural android motion** by using a developed framework by merging multiple motion generator models.
+**Silva** is an android operation framework generates **lifelike android motion** by using a developed framework by merging multiple motion generator models.
 
 |ROS Version|Kinetic|Melodic|
 |  :---:|  :---:|  :---:|
@@ -16,7 +16,18 @@ It is authored by [**Shiqi Yu**](https://shiqi-yu.com/), **Naoki Ise**, and [**Y
     <sup>The mobile android <a href="https://eng.irl.sys.es.osaka-u.ac.jp/projects/ibuki" target="_blank">ibuki</a> showing conversation postures using silva.</sup>
 </p>
 
-## Building 
+## Excepted Features
+The beta version of silva has been released, the whole project is still under daily development. Silva is designed to have the following expected features:
+
+* Compatibily: Given the robot with limited diversity, the framework can enable the lifelike motion charactistics of the robot.
+* Tolerance: For the faults and errors from the inputs or the framework itself, the behavior of the robot will be constrainted in common 
+* Synthesis: The framework can adapt as many kinds of existing motion models as it can.
+* Easy Modulize: Users can easy design the modules and add them to the existing frameworks.
+
+## Configuration
+**OS**: Ubuntu 18.04 on Nvidia AGX Xaiver suggested
+
+## Installation
 ```
 cd ~/some_path
 git clone https://github.com/ustyui/silva.git
@@ -26,7 +37,7 @@ cd ~/catkin_ws/src/silva/
 ./installdependencyXavier.sh
 catkin_make
 ```
-## How to Use
+## Quick Start
 ### System Boot (Robot Side)
 ```
 roslaunch silva_beta beta.launch
