@@ -116,6 +116,10 @@ def opt_pub(rate, pub, msg, run_event):
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
+        # decoration
+        rospack = rospkg.RosPack()
+        self.picpath = rospack.get_path('silva_beta')+'/src/assets/logo.png'
+        
         # speech
         self._contents = ''
         
@@ -147,8 +151,22 @@ class MainWindow(QMainWindow):
         helpMenu = mainMenu.addMenu('Help')
         
         # Create Labels
+        
+        label0 = QLabel(self)
+        pixmap = QPixmap(self.picpath)
+        label0.resize(191,196)
+        label0.setPixmap(pixmap)
+        label0.move(self.width-201,self.height-246)
+        
         label1 = QLabel('Teleoperation Speech', self)
         label1.move(20,30)
+        
+        label2 = QLabel('Main Gate', self)
+        label2.move(20,140)
+        
+        label3 = QLabel('ERATO Symbiotic HRI project. All rights reserved.',self)
+        label3.resize(491,20)
+        label3.move(self.width-350,self.height-40)
         
         # Create textbox
         self.textbox = QLineEdit(self)
@@ -163,12 +181,13 @@ class MainWindow(QMainWindow):
         
         # Create Button groups
         
+        
         ## Menu buttons
         helpbutton1 = QAction('About on Github',self)
         helpbutton1.setShortcut('Ctrl+F1')
         helpbutton1.setStatusTip('Find documentation and usage on github.')
         helpbutton1.triggered.connect(lambda: self.link_to('https://github.com/ustyui/silva'))
-        helpMenu.addAction(helpbutton1)        
+        helpMenu.addAction(helpbutton1) 
         
 
     @pyqtSlot()
