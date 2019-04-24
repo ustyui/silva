@@ -1,14 +1,20 @@
 <p align="center">
-  <img width="191" src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/logo.png">
+  <img width="191" src="/ibukiDEVGuide/assets/images/logo.png">
 </p>
 
+**Silva** is an android operation framework generates **natural android motion** by using a developed framework by merging multiple motion generator models.
 
-|[![Build Status](https://travis-ci.org/ustyui/silva.svg?branch=master)](https://travis-ci.org/ustyui/silva)|
-|  :---:|
+|ROS Version|Kinetic|Melodic|
+|  :---:|  :---:|  :---:|
+|Build Status|[![Build Status](https://travis-ci.org/ustyui/silva.svg?branch=master)](https://travis-ci.org/ustyui/silva)|[![Build Status](https://travis-ci.org/ustyui/silva.svg?branch=master)](https://travis-ci.org/ustyui/silva)|  
 
+It is authored by [**Shiqi Yu**](https://shiqi-yu.com/), and **Naoki Ise**. Currently, it is being maintained by [**Shiqi Yu**](https://shiqi-yu.com/). To use **silva**, A ROS environment under linux is necessary. For detail handbooks, please refer to [**ibukiDEVGuide**](/ibukiDEVGuide).
 
-## Usage
-The silva android operation framework generates android motion by using a developed framework by merging multiple motion generator models.
+<p align="center">
+    <img src="ibukiDEVGuide/assets/images/motion_upper_body.gif", width="320">
+    <br>
+    <sup>The mobile android <a href="https://eng.irl.sys.es.osaka-u.ac.jp/projects/ibuki" target="_blank">ibuki</a> showing conversation postures using silva.</sup>
+</p>
 
 ## Building 
 ```
@@ -59,3 +65,7 @@ You can check the message type by using
 ```
 rostopic list /silva
 ```
+
+## Citation
+Please cite the following papers in your publications if it helps your research:
+
