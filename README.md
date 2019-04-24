@@ -1,7 +1,8 @@
-# silva
-silva android system framework based on ROS
+<p align="center">
+  <img width="191" src="https://github.com/ustyui/silva/blob/master/ibukiDEVGuide/assets/images/logo.png">
+</p>
 
-master branch:[![Build Status](https://travis-ci.org/ustyui/silva.svg?branch=master)](https://travis-ci.org/ustyui/silva)
+[![Build Status](https://travis-ci.org/ustyui/silva.svg?branch=master)](https://travis-ci.org/ustyui/silva)
 
 ## Usage
 The silva android operation framework generates android motion by using a developed framework by merging multiple motion generator models.
