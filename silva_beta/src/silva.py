@@ -125,11 +125,13 @@ class MainWindow(QMainWindow):
         self.sldh = [] #high: highest limit
         self.sldl = [] #low: lowest limit
         self.sldn = [] #now: current value
+        self.labels = []
 
         tform.set_zeros(self.sld)
         tform.set_zeros(self.sldh)
         tform.set_zeros(self.sldl)
         tform.set_zeros(self.sldn)
+        tform.set_zeros(self.labels)
 
         self.progress = [0,0,0,0,0]    
         
@@ -149,10 +151,17 @@ class MainWindow(QMainWindow):
         self.width = 1366
         self.height = 768
         
-        self.initUI()
-        
         # param        
         self.state = [0.0, 0.0, 0.5, 0.0]
+        
+        # yaml params
+        self.param_config = tform.read_param('gui_config')
+        
+        self.initUI()
+        
+
+        
+
         
     def initUI(self):
         
@@ -199,6 +208,62 @@ class MainWindow(QMainWindow):
         label7 = QLabel('Auto', self)
         label7.move(33, 265)        
         
+        label8 = QLabel('Real-time Motion Adjustment',self)
+        label8.resize(300,20)
+        label8.move(320,30)
+        
+        # Slider Labeling
+        
+        ## neck
+        for i in range (0,5):
+            self.labels[i] = QLabel(self.param_config['neck'][i], self)
+            self.labels[i].move(320, 60+i*40)
+        
+        ## arml
+        for i in range (0,5):
+            self.labels[i] = QLabel(self.param_config['arml'][i], self)
+            self.labels[i].move(320, 260+i*40)
+        
+        ## armr
+        for i in range (0,5):
+            self.labels[i] = QLabel(self.param_config['armr'][i], self)
+            self.labels[i].move(520, 60+i*40)
+            
+        ## handl
+        for i in range (0,5):
+            self.labels[i] = QLabel(self.param_config['handl'][i], self)
+            self.labels[i].move(520, 260+i*40)
+            
+        ## handr
+        for i in range (0,5):
+            self.labels[i] = QLabel(self.param_config['handr'][i], self)
+            self.labels[i].move(720, 60+i*40)      
+            
+        ## headl
+        for i in range (0,5):
+            self.labels[i] = QLabel(self.param_config['headl'][i], self)
+            self.labels[i].move(720, 260+i*40)
+            
+        ## heac
+        for i in range (0,5):
+            self.labels[i] = QLabel(self.param_config['headc'][i], self)
+            self.labels[i].move(920, 60+i*40)          
+        
+        ## headr
+        for i in range (0,5):
+            self.labels[i] = QLabel(self.param_config['headr'][i], self)
+            self.labels[i].move(920, 260+i*40)
+        
+        ## hip
+        for i in range (0,5):
+            self.labels[i] = QLabel(self.param_config['hip'][i], self)
+            self.labels[i].move(1120, 60+i*40)     
+        
+        ## wheel
+        for i in range (0,5):
+            self.labels[i] = QLabel(self.param_config['wheel'][i], self)
+            self.labels[i].move(1120, 260+i*40)
+        
         # Create textbox
         self.textbox = QLineEdit(self)
         self.textbox.move(20, 60)
@@ -217,22 +282,26 @@ class MainWindow(QMainWindow):
             self.progress[index].valueChanged[int].connect(self.changeValue)
         
         # Create Sliders
-        ## head group
+        ## neck arml
         ### Note: The qt slider only generate from 0 to 99, so an external .conf file of the upper lower limit of joints is needed to judge the real output of the sliders
-        for self.index in range(0,10):
-            self.sld[self.index] = QSlider(Qt.Horizontal, self)
-            self.sld[self.index].setFocusPolicy(Qt.NoFocus)
-            self.sld[self.index].setGeometry(400,60+self.index*40,100,30)
-            self.sld[self.index].setTickPosition(QSlider.TicksBothSides)
-            self.sld[self.index].setValue(50)
-            self.sld[self.index].valueChanged[int].connect(self.changeValue)
-            ### labels
-            self.sldn[self.index] = QLabel(str(0),self)
-            self.sldn[self.index].move(500,60+self.index*40)
+        for oidx in range(0,5):
+            for self.index in range(0,10):
+                self.sld[self.index+oidx*10] = QSlider(Qt.Horizontal, self)
+                self.sld[self.index+oidx*10].setFocusPolicy(Qt.NoFocus)
+                self.sld[self.index+oidx*10].setGeometry(390+oidx*200 ,60+self.index*40,100,30)
+                self.sld[self.index+oidx*10].setTickPosition(QSlider.TicksBothSides)
+                self.sld[self.index+oidx*10].setValue(50)
+                self.sld[self.index+oidx*10].valueChanged[int].connect(self.changeValue)
+                ### labels
+                self.sldn[self.index+oidx*10] = QLabel(str(0),self)
+                self.sldn[self.index+oidx*10].move(490+oidx*200,60+self.index*40)
         
-        ## neck, arm(above)
+        ## armr, handl       
+        ## handr, headl
         
-        ## arm(down), hands, hip
+        ## headc, headr
+        
+        ## hip, wheel
         
         
         ## Menu buttons
