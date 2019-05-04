@@ -22,10 +22,15 @@ The beta version of silva has been released, the whole project is still under da
 * Compatibily: Given the robot with limited diversity, the framework can enable the lifelike motion charactistics of the robot.
 * Tolerance: For the faults and errors from the inputs or the framework itself, the behavior of the robot will be constrainted in common 
 * Synthesis: The framework can adapt as many kinds of existing motion models as it can.
-* Easy Modulize: Users can easy design the modules and add them to the existing frameworks.
+* Easy Modularize: Users can easy design the modules and add them to the existing frameworks.
 
 ## Configuration
 **OS**: Ubuntu 18.04 on Nvidia AGX Xaiver suggested
+
+## Contents
+1. [Installation](#installation)
+2. [Quick Start](#quick-start)
+3. [Citation](#citation)
 
 ## Installation
 ```
