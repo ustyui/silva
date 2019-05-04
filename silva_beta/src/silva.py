@@ -133,7 +133,7 @@ class MainWindow(QMainWindow):
         tform.set_zeros(self.sldn)
         tform.set_zeros(self.labels)
 
-        self.progress = [0,0,0,0,0]    
+        self.progress = [0,0,0,0,0] 
         
         self.index =0
         
@@ -156,6 +156,16 @@ class MainWindow(QMainWindow):
         
         # yaml params
         self.param_config = tform.read_param('gui_config')
+        
+        self.table_widget = MyTableWidget(self)
+        
+        self.table_widget.setGeometry(10,295,300,450)
+        #self.setCentralWidget(self.table_widget)        
+        
+        
+        self.table_widget_b = ButtomWidget(self)
+        
+        self.table_widget_b.setGeometry(300,460,850,265)
         
         self.initUI()
         
@@ -184,7 +194,7 @@ class MainWindow(QMainWindow):
         pixmap = QPixmap(self.picpath)
         label0.resize(191,196)
         label0.setPixmap(pixmap)
-        label0.move(self.width-201,self.height-246)
+        label0.move(self.width-201,self.height-255)
         
         label1 = QLabel('Teleoperation Speech', self)
         label1.move(20,30)
@@ -329,7 +339,70 @@ class MainWindow(QMainWindow):
 #    def download(self):
 #        self.progress3.setValue(self.state[2])
         
+class MyTableWidget(QWidget):
+    def __init__(self, parent):
+        super(QWidget, self).__init__(parent)
+        self.layout = QGridLayout(self)
         
+        # init tabs
+        self.tabs = QTabWidget()
+        self.tab1 = QWidget()
+        self.tab2 = QWidget()
+        self.tabs.resize(300,200)
+        
+        # add tabs
+        self.tabs.addTab(self.tab1, "Motion")
+        self.tabs.addTab(self.tab2, "State")
+        
+        # init buttons
+        self.pushButton = []
+        tform.set_zeros(self.pushButton, 10) # max 10 buttons now
+        
+        # Create Motion tab
+        self.tab1.layout = QVBoxLayout(self)
+        # Buttons
+        self.pushButton[0] = QPushButton("Reset")
+        self.pushButton[1] = QPushButton("Look around")
+        self.pushButton[2] = QPushButton("Wave Hand")  
+        
+        for index in range(3,10):
+            self.pushButton[index] = QPushButton("Motion"+str(index))
+        
+        for index in range(0,10):
+            self.tab1.layout.addWidget(self.pushButton[index])
+        self.tab1.setLayout(self.tab1.layout)
+        
+        # Add tabs to widget
+        self.layout.addWidget(self.tabs)
+        self.setLayout(self.layout)
+        
+class ButtomWidget(QWidget):
+    def __init__(self, parent):
+        super(QWidget, self).__init__(parent)
+        self.layout = QGridLayout(self)
+        
+        # init tabs
+        self.tabs = QTabWidget()
+        self.tab1 = QWidget()
+        self.tab2 = QWidget()
+        self.tabs.resize(300,200)
+        
+        # add tabs
+        self.tabs.addTab(self.tab1, "Feedbacks")
+        self.tabs.addTab(self.tab2, "Network Status")
+        
+        # init buttons
+        self.pushButton = []
+        tform.set_zeros(self.pushButton, 10) # max 10 buttons now
+        
+        # Create Motion tab
+        self.tab1.layout = QVBoxLayout(self)
+ 
+        self.tab1.setLayout(self.tab1.layout)
+        
+        # Add tabs to widget
+        self.layout.addWidget(self.tabs)
+        self.setLayout(self.layout)    
         
         
 if __name__ == '__main__':
