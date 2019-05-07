@@ -44,15 +44,15 @@ PORT:
   hip: 10017
   wheel: 10018
   wheelf: 10019
-  handlp: 11006
-  handrp: 11007
-  headlp: 11011
-  headcp: 11012
-  headrp: 11013
-  armlp: 11014
-  armrp: 11015
-  neckp: 11016
-  hipp: 11017
+  handlf: 11006
+  handrf: 11007
+  headlf: 11011
+  headcf: 11012
+  headrf: 11013
+  armlf: 11014
+  armrf: 11015
+  neckf: 11016
+  hipf: 11017
   
   executor: 10099
   
