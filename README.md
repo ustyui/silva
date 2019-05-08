@@ -39,7 +39,8 @@ git clone https://github.com/ustyui/silva.git
 cd ~/catkin_ws
 ln -s ~/some_path/silva ~/catkin_ws/src/silva
 cd ~/catkin_ws/src/silva/
-./installdependencyXavier.sh
+sudo chmod u+x ./installdependencyXavier.sh
+sudo ./installdependencyXavier.sh
 catkin_make
 ```
 ## Quick Start
