@@ -54,12 +54,12 @@ roslaunch silva_beta beta.launch
 roslaunch silva_beta tanh.launch
 ```
 
-### Midi Controller Interface (Command PC Side)
+### Midi Controller Interface (Command PC Side, OR on Robot Side for debug)
 ```
 roslaunch silva_beta controlpanel.launch
 ```
 
-### GUI Usage (On Command PC Side)
+### GUI Usage (On Command PC Side, OR on Robot Side for debug)
 ```
 rosrun silva_beta silva.py
 ```
