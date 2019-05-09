@@ -61,7 +61,7 @@ roslaunch silva_beta controlpanel.launch
 
 ### GUI Usage (On Command PC Side)
 ```
-rosrun silva_beta debug_gui.py
+rosrun silva_beta silva.py
 ```
 
 ### Humanoid Simulation Model Mapping 
