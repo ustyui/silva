@@ -6,7 +6,7 @@ debug graphical user interface PyQt5
 
 @author: ustyui
 """
-import sys
+import sys, time
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -133,7 +133,7 @@ class MainWindow(QMainWindow):
         tform.set_zeros(self.sldn)
         tform.set_zeros(self.labels)
 
-        self.progress = [0,0,0,0,0] 
+        self.progress = [0,0,0,0] 
         
         self.index =0
         
@@ -143,7 +143,21 @@ class MainWindow(QMainWindow):
         # inner publishers
         self.pub_s = rospy.Publisher('/silva/speech_global/jp', String, queue_size=10)
         
+        # get minimum, maximum, and default
+        default, blank = tform.load_map('ibuki')
+        min_v, max_v = tform.load_map('limit')
+        self.min_rel = []
+        self.max_rel = []
         
+        # get rel minimum and maximum
+        for i in range (len(min_v)):
+            if (min_v[i]!=-1 or max_v[i]!=-1):
+                self.min_rel.append(default[i] - min_v[i])
+                self.max_rel.append(max_v[i]- default[i])
+            else:
+                self.min_rel.append(100)
+                self.max_rel.append(100)
+                
         # GUI
         self.title = 'silva'
         self.left = 300
@@ -152,7 +166,7 @@ class MainWindow(QMainWindow):
         self.height = 768
         
         # param        
-        self.state = [0.0, 0.0, 0.5, 0.0]
+        self.state = [0.0, 0.0, 1.0, 0.0]
         
         # yaml params
         self.param_config = tform.read_param('gui_config')
@@ -169,8 +183,9 @@ class MainWindow(QMainWindow):
         
         self.initUI()
         
-
-        
+        time.sleep(2) # load delay for stable
+        # subscribers
+        sub_states = rospy.Subscriber('/silva/states', Float32MultiArray, self.states_cb)
 
         
     def initUI(self):
@@ -285,34 +300,32 @@ class MainWindow(QMainWindow):
         button.move(110,110)
         button.clicked.connect(self.on_click)
         
-        # Create progressbar
+        # Create progressbar of IRSA
         for index in range(0,4):
             self.progress[index] = QProgressBar(self)
             self.progress[index].setGeometry(100,180+index*30,180,20)
-            self.progress[index].valueChanged[int].connect(self.changeValue)
+            self.progress[index].setMaximum(100)
         
         # Create Sliders
         ## neck arml
         ### Note: The qt slider only generate from 0 to 99, so an external .conf file of the upper lower limit of joints is needed to judge the real output of the sliders
         for oidx in range(0,5):
-            for self.index in range(0,10):
-                self.sld[self.index+oidx*10] = QSlider(Qt.Horizontal, self)
-                self.sld[self.index+oidx*10].setFocusPolicy(Qt.NoFocus)
-                self.sld[self.index+oidx*10].setGeometry(390+oidx*200 ,60+self.index*40,100,30)
-                self.sld[self.index+oidx*10].setTickPosition(QSlider.TicksBothSides)
-                self.sld[self.index+oidx*10].setValue(50)
-                self.sld[self.index+oidx*10].valueChanged[int].connect(self.changeValue)
+            for index in range(0,10):
+                self.sld[index+oidx*10] = QSlider(Qt.Horizontal, self)
+                self.sld[index+oidx*10].setFocusPolicy(Qt.NoFocus)
+                self.sld[index+oidx*10].setGeometry(390+oidx*200 ,60+index*40,100,30)
+                self.sld[index+oidx*10].setTickPosition(QSlider.TicksBothSides)
+                # set range of sliders
+                self.sld[index+oidx*10].setRange(-self.min_rel[index+oidx*10],self.max_rel[index+oidx*10])
+                self.sld[index+oidx*10].setValue(0)
+
                 ### labels
-                self.sldn[self.index+oidx*10] = QLabel(str(0),self)
-                self.sldn[self.index+oidx*10].move(490+oidx*200,60+self.index*40)
-        
-        ## armr, handl       
-        ## handr, headl
-        
-        ## headc, headr
-        
-        ## hip, wheel
-        
+                self.sldn[index+oidx*10] = QLabel(str(0),self)
+                self.sldn[index+oidx*10].move(490+oidx*200,60+index*40)
+                
+        # slider value changed to corresponding lbel sldn
+        for idx in range(0, 50):
+            self.sld[idx].valueChanged.connect(self.sldn[idx].setNum)
         
         ## Menu buttons
         helpbutton1 = QAction('About on Github',self)
@@ -321,10 +334,13 @@ class MainWindow(QMainWindow):
         helpbutton1.triggered.connect(lambda: self.link_to('https://github.com/ustyui/silva'))
         helpMenu.addAction(helpbutton1) 
         
-    def changeValue(self, value):
-        realvalue = value - 50
-        self.sldn[self.index].setText(str(realvalue))
-        print value
+    # ROS States callback
+    def states_cb(self, msg):
+        self.state = msg.data # map the value to states
+        #print self.state
+#        for index in range (0, len(self.state)):
+#            self.progress[index].setValue(int(self.state[index]*100))
+        
 
     @pyqtSlot()
     def on_click(self):
@@ -432,10 +448,37 @@ if __name__ == '__main__':
     (20, pub, Dpose._pub_msg, run_event))
     
     move_t.start()
-    
+        
     app = QApplication(sys.argv)
     main_window = MainWindow()
     main_window.show()
+    
+    main_counter = 0
+    
+    while not rospy.is_shutdown(): ## note: this is GUI loop
+        
+        main_counter+=1
+        for idx in range (0, len(main_window.state)):
+            
+            main_window.progress[idx].setValue(int(main_window.state[idx]*100))
+            #main_window.sld[2].setValue(int(main_window.sldn[1].text()))
+        
+        app.processEvents()
+        
+        # do payload update ever two times
+        if main_counter ==2:
+            for index in range (0,50):
+                Dpose._payload[index] = int(main_window.sldn[index].text())
+            
+            Dpose._pub_msg.payload = Dpose._payload
+            main_counter = 0
+            
+        #print main_counter
+        
+        loop_rate.sleep()
+    
     sys.exit(app.exec_())
+
+    
     
     
