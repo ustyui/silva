@@ -8,7 +8,7 @@ Rates:
 
   broadcast: 2
   fusion: 40
-  gui: 20
+  gui: 50
   idle: 30
   jointinterface: 50
   reflex: 30
