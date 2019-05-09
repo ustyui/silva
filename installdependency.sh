@@ -13,6 +13,8 @@ source $ROS_WORKSPACE/devel/setup.bash
 set -e
 
 if [ "$JETSON_BOARD" != "AGX Xavier" ] ; then 
+  # some fresh dependencies
+  sudo -H apt-get install python-pip
   # install respeaker pre-dependencies
   sudo -H apt-get install libportaudio2 -y
   sudo -H apt-get install python-pyaudio
