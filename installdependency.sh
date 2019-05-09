@@ -14,10 +14,10 @@ set -e
 
 if [ "$JETSON_BOARD" != "AGX Xavier" ] ; then 
   # some fresh dependencies
-  sudo -H apt-get install python-pip
+  sudo -H apt-get install python-pip -y
   # install respeaker pre-dependencies
   sudo -H apt-get install libportaudio2 -y
-  sudo -H apt-get install python-pyaudio
+  sudo -H apt-get install python-pyaudio -y
   # change mod for all of the python scripts
   cd $INSTALL_DIR/silva_beta/src
   sudo chmod u+x *.py
