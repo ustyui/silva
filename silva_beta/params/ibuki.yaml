@@ -11,6 +11,7 @@ Rates:
   gui: 50
   idle: 30
   jointinterface: 50
+  internalsensors: 25
   reflex: 30
   slave: 30
 
