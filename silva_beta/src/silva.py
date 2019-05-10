@@ -124,14 +124,19 @@ class MainWindow(QMainWindow):
         self.sld = []        
         self.sldh = [] #high: highest limit
         self.sldl = [] #low: lowest limit
-        self.sldn = [] #now: current value
+        self.sldn = [] #now: current operation value
+        self.sldr = [] #real: feedback value label from ibuki
         self.labels = []
+        # init labels
+        self.fb_value = [] # feedback value buffer
 
         tform.set_zeros(self.sld)
         tform.set_zeros(self.sldh)
         tform.set_zeros(self.sldl)
         tform.set_zeros(self.sldn)
+        tform.set_zeros(self.sldr)
         tform.set_zeros(self.labels)
+        tform.set_zeros(self.fb_value)
 
         self.progress = [0,0,0,0] 
         
@@ -144,7 +149,7 @@ class MainWindow(QMainWindow):
         self.pub_s = rospy.Publisher('/silva/speech_global/jp', String, queue_size=10)
         
         # get minimum, maximum, and default
-        default, blank = tform.load_map('ibuki')
+        self.default, blank = tform.load_map('ibuki')
         min_v, max_v = tform.load_map('limit')
         self.min_rel = []
         self.max_rel = []
@@ -152,8 +157,8 @@ class MainWindow(QMainWindow):
         # get rel minimum and maximum
         for i in range (len(min_v)):
             if (min_v[i]!=-1 or max_v[i]!=-1):
-                self.min_rel.append(default[i] - min_v[i])
-                self.max_rel.append(max_v[i]- default[i])
+                self.min_rel.append(self.default[i] - min_v[i])
+                self.max_rel.append(max_v[i]- self.default[i])
             else:
                 self.min_rel.append(100)
                 self.max_rel.append(100)
@@ -186,7 +191,7 @@ class MainWindow(QMainWindow):
         time.sleep(2) # load delay for stable
         # subscribers
         sub_states = rospy.Subscriber('/silva/states', Float32MultiArray, self.states_cb)
-
+        sub_fbs = rospy.Subscriber('/silva/reflex_local/ch0', Evans, self.fb_cb)
         
     def initUI(self):
         
@@ -300,6 +305,11 @@ class MainWindow(QMainWindow):
         button.move(110,110)
         button.clicked.connect(self.on_click)
         
+        # Button Actions of Table Widgets
+        self.table_widget.pushButton[0].clicked.connect(self.on_reset)
+        
+        
+        
         # Create progressbar of IRSA
         for index in range(0,4):
             self.progress[index] = QProgressBar(self)
@@ -320,8 +330,12 @@ class MainWindow(QMainWindow):
                 self.sld[index+oidx*10].setValue(0)
 
                 ### labels
+                # operate value
                 self.sldn[index+oidx*10] = QLabel(str(0),self)
-                self.sldn[index+oidx*10].move(490+oidx*200,60+index*40)
+                self.sldn[index+oidx*10].move(490+oidx*200,50+index*40)
+                
+                self.sldr[index+oidx*10] = QLabel(str(0),self)
+                self.sldr[index+oidx*10].move(490+oidx*200,70+index*40)
                 
         # slider value changed to corresponding lbel sldn
         for idx in range(0, 50):
@@ -341,6 +355,14 @@ class MainWindow(QMainWindow):
 #        for index in range (0, len(self.state)):
 #            self.progress[index].setValue(int(self.state[index]*100))
         
+    def fb_cb(self, msg):
+        temp_buffer = msg.payload
+        sn = seq_of_jointname[msg.name]
+        # 45 fb's in the fb_value list
+        for idx in range(0,5):
+            self.fb_value[sn*5+idx] = temp_buffer[idx]
+            
+        
 
     @pyqtSlot()
     def on_click(self):
@@ -348,6 +370,11 @@ class MainWindow(QMainWindow):
         print(self._contents)
         self.textbox.clear()
         self.pub_s.publish(self._contents)
+    def on_reset(self):
+        print('Motion reset.')
+        for i in range(0, 50):
+            self.sld[i].setValue(0)
+        
     @pyqtSlot()
     def link_to(self, url):
         webbrowser.open(url)
@@ -384,6 +411,9 @@ class MyTableWidget(QWidget):
         for index in range(3,10):
             self.pushButton[index] = QPushButton("Motion"+str(index))
         
+        # StatusTip
+        self.pushButton[0].setStatusTip('Reset Operation Inputs of the User to 0.')
+        
         for index in range(0,10):
             self.tab1.layout.addWidget(self.pushButton[index])
         self.tab1.setLayout(self.tab1.layout)
@@ -391,6 +421,7 @@ class MyTableWidget(QWidget):
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
+            
         
 class ButtomWidget(QWidget):
     def __init__(self, parent):
@@ -462,7 +493,11 @@ if __name__ == '__main__':
         for idx in range (0, len(main_window.state)):
             
             main_window.progress[idx].setValue(int(main_window.state[idx]*100))
-            #main_window.sld[2].setValue(int(main_window.sldn[1].text()))
+            main_window.sld[2].setValue(int(main_window.sldn[1].text()))
+        
+        for idx in range (0, 45):
+            fb = int(main_window.fb_value[idx]*0.1)-main_window.default[idx]
+            main_window.sldr[idx].setText(str(fb)) # set feedback
         
         app.processEvents()
         
@@ -474,7 +509,7 @@ if __name__ == '__main__':
             Dpose._pub_msg.payload = Dpose._payload
             main_counter = 0
             
-        #print main_counter
+        print main_window.fb_value
         
         loop_rate.sleep()
     

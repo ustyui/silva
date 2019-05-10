@@ -11,7 +11,7 @@ Created on Fri May 10 13:30:43 2019
 import rospy
 from silva_beta.msg import Evans
 
-import transfromations as tform
+import transformations as tform
 import socket, errno
 import sys
 
@@ -56,11 +56,11 @@ if __name__ == "__main__":
         
         # split the position and currents
         pac = position.split(',')
-        p_pos = pac[0].split()
+        p_pos = pac[0]
         p_cur = pac[1]
         
-        for elements in p_pos:
-            payload_p.append(int(int(elements)/10))
+        for idx in range(0,5):
+            payload_p.append(int(p_pos[idx*5:(idx+1)*5]))
         for idx in range(0,5):
             payload_c.append(int(p_cur[idx*5:(idx+1)*5]))
             
@@ -68,9 +68,15 @@ if __name__ == "__main__":
         tform.make_message(pub_msg_p,2,dev_name,3,payload_p)
         tform.make_message(pub_msg_c,2,dev_name,4,payload_c)
         
+        #print payload_p
+        #print payload_c
+        #print position
+        
         # publish
         pub_p.publish(pub_msg_p)
         pub_c.publish(pub_msg_c)
+        
+        
         
         rate.sleep()
 # If the value cannot be obtain, try again until get the value
