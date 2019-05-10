@@ -26,6 +26,7 @@ _RATE = param_config['Rates']['jointinterface']
 ip = param_config['IP']
 port = param_config['PORT']
 
+
 # import sensor_msgs
 "-------------------------------------------------------------parameter input"
 dev_name = sys.argv[1]
@@ -74,24 +75,18 @@ class Joint():
 "------------------------------------------------------------------main func"
 
 def mbed_cb(_sock, _sockb, _str, run_event, cls):
+    
     # send hello
     rate = rospy.Rate(_RATE)
-    _flag = 0
+    _flag = 1
     # which device?
-    if dev_name == 'arml':
-        _port = 11014
-        _flag = 1
-#    elif dev_name == 'armr':
-#        _port = 10022
-#        _flag = 0
-    elif dev_name == 'wheel':
-        _port = 10019
+    portf = param_config['PORT'][dev_name+'f'] 
+    if dev_name == 'wheel':
         _flag = 2
-        
     while run_event.is_set() and not rospy.is_shutdown():
         if _flag == 1:
             # TODO: add timeout?
-            _sock.sendto(_str, (ip[dev_name], _port))
+            _sock.sendto(_str, (ip[dev_name], portf))
             cls._position, addr_rt =  _sock.recvfrom(4096)
             
             templist = []
@@ -99,6 +94,7 @@ def mbed_cb(_sock, _sockb, _str, run_event, cls):
             
             # split the position and curretn
             pac = cls._position.split(',')
+            print pac
             p_pos = pac[0].split()
             p_cur = pac[1]
 
@@ -110,7 +106,7 @@ def mbed_cb(_sock, _sockb, _str, run_event, cls):
             cls._payload_c = templist
             
         if _flag == 2:
-            _sock.sendto(_str, (ip[dev_name], _port))
+            _sock.sendto(_str, (ip[dev_name], portf))
             cls._position, addr_rt =  _sock.recvfrom(1024)
             cls.tmp = cls._position.split('a') # fake wheel payload
             cls._payload_w = [int(cls.tmp[1]),int(cls.tmp[2]),0,0,0]

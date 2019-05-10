@@ -458,6 +458,7 @@ if __name__ == '__main__':
     while not rospy.is_shutdown(): ## note: this is GUI loop
         
         main_counter+=1
+        # update the elements
         for idx in range (0, len(main_window.state)):
             
             main_window.progress[idx].setValue(int(main_window.state[idx]*100))
@@ -465,7 +466,7 @@ if __name__ == '__main__':
         
         app.processEvents()
         
-        # do payload update ever two times
+        # update the payloads ever two times
         if main_counter ==2:
             for index in range (0,50):
                 Dpose._payload[index] = int(main_window.sldn[index].text())
