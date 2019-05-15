@@ -138,6 +138,7 @@ class MainWindow(QMainWindow):
         tform.set_zeros(self.labels)
         tform.set_zeros(self.fb_value)
 
+
         self.progress = [0,0,0,0] 
         
         self.index =0
@@ -192,6 +193,7 @@ class MainWindow(QMainWindow):
         # subscribers
         sub_states = rospy.Subscriber('/silva/states', Float32MultiArray, self.states_cb)
         sub_fbs = rospy.Subscriber('/silva/reflex_local/ch0', Evans, self.fb_cb)
+
         
     def initUI(self):
         
@@ -323,7 +325,7 @@ class MainWindow(QMainWindow):
             for index in range(0,10):
                 self.sld[index+oidx*10] = QSlider(Qt.Horizontal, self)
                 self.sld[index+oidx*10].setFocusPolicy(Qt.NoFocus)
-                self.sld[index+oidx*10].setGeometry(390+oidx*200 ,60+index*40,100,30)
+                self.sld[index+oidx*10].setGeometry(390+oidx*200 ,60+index*40,90,30)
                 self.sld[index+oidx*10].setTickPosition(QSlider.TicksBothSides)
                 # set range of sliders
                 self.sld[index+oidx*10].setRange(-self.min_rel[index+oidx*10],self.max_rel[index+oidx*10])
@@ -332,10 +334,10 @@ class MainWindow(QMainWindow):
                 ### labels
                 # operate value
                 self.sldn[index+oidx*10] = QLabel(str(0),self)
-                self.sldn[index+oidx*10].move(490+oidx*200,50+index*40)
+                self.sldn[index+oidx*10].move(480+oidx*200,50+index*40)
                 
                 self.sldr[index+oidx*10] = QLabel(str(0),self)
-                self.sldr[index+oidx*10].move(490+oidx*200,70+index*40)
+                self.sldr[index+oidx*10].move(480+oidx*200,70+index*40)
                 
         # slider value changed to corresponding lbel sldn
         for idx in range(0, 50):
@@ -355,6 +357,8 @@ class MainWindow(QMainWindow):
 #        for index in range (0, len(self.state)):
 #            self.progress[index].setValue(int(self.state[index]*100))
         
+    # ROS Feedback Functions
+    
     def fb_cb(self, msg):
         temp_buffer = msg.payload
         sn = seq_of_jointname[msg.name]
@@ -362,6 +366,8 @@ class MainWindow(QMainWindow):
         for idx in range(0,5):
             self.fb_value[sn*5+idx] = temp_buffer[idx]
             
+
+        
         
 
     @pyqtSlot()
@@ -442,8 +448,21 @@ class ButtomWidget(QWidget):
         self.pushButton = []
         tform.set_zeros(self.pushButton, 10) # max 10 buttons now
         
+        # init labels
+        self.current_labels = []
+        self.current_values = []
+        self.cur_value = [] # current value feedback
+        
+        tform.set_zeros(self.cur_value)
+        
+        tform.set_zeros(self.current_labels)
+        tform.set_zeros(self.current_values)
+        
+        
         # Create Motion tab
-        self.tab1.layout = QVBoxLayout(self)
+        self.tab1.layout = QGridLayout(self)
+        
+        self.initUI()
  
         self.tab1.setLayout(self.tab1.layout)
         
@@ -451,7 +470,47 @@ class ButtomWidget(QWidget):
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)    
         
+        # rospy subscriber
+        sub_cur = rospy.Subscriber('/silva/reflex_local/ch1', Evans, self.cur_cb)
         
+    def initUI(self):
+        for oidx in range(0,10):
+            for index in range(0,5):
+                self.current_labels[oidx*5+index] = QLabel('C['+str(oidx*5+index)+']:')
+                self.current_values[oidx*5+index] = QLabel(str(0)+' mA')
+                
+                self.tab1.layout.addWidget(self.current_labels[oidx*5+index],oidx,index*2)
+                self.tab1.layout.addWidget(self.current_values[oidx*5+index],oidx,index*2+1)
+                
+                #self.current_labels[oidx*5+index].move(400+oidx*90, 500+index*20)
+
+
+
+#        self.table = QTableWidget()
+#        self.tableItem = QTableWidgetItem()
+#        
+#        # init table
+#        self.table.resize(800,250)
+#        self.table.setRowCount(5)
+#        self.table.setColumnCount(10)
+        
+        # set value 
+#        for oidx in range(0,10):
+#            for index in range(0,5):
+#                table.setItem(index, oidx, QTableWidgetItem("0"))
+        
+        #self.tab1.layout.addWidget(self.table)
+        
+                # slider value changed to corresponding lbel sldn
+            
+    def cur_cb(self, msg):
+        temp_buffer = msg.payload
+        sn = seq_of_jointname[msg.name]
+        
+        for idx in range(0,5):
+            self.cur_value[sn*5+idx] = (temp_buffer[idx]-5000)*20
+            
+            
 if __name__ == '__main__':
     
     #ros function
@@ -498,7 +557,12 @@ if __name__ == '__main__':
         for idx in range (0, 45):
             fb = int(main_window.fb_value[idx]*0.1)-main_window.default[idx]
             main_window.sldr[idx].setText(str(fb)) # set feedback
-        
+            
+            cr = int(main_window.table_widget_b.cur_value[idx])
+            main_window.table_widget_b.current_values[idx].setText(str(cr)+' mA')
+            
+        #main_window.table_widget_b.table.setItem(1,1,QTableWidgetItem('1'))
+        #main_window.table_widget_b.tab1.
         app.processEvents()
         
         # update the payloads ever two times
