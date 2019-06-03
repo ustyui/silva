@@ -75,6 +75,7 @@ You can monitor the output using
 ```
 rostopic echo /silva/slave_local/operation
 ```
+
 ### Messages
 Silva has different type of messages based on its framework.
 
@@ -82,6 +83,23 @@ You can check the message type by using
 ```
 rostopic list /silva
 ```
+
+### Feedback Function
+To take position feedback and current feedback using silva, do as follows:
+
+run basic silva system
+```roslaunch silva_beta feedback.launch```
+
+`rosbag record -a`
+Then you can get a .bag file in the terminal repository.
+Press Ctrl+c to stop recording.
+
+If you want to monitor the raw feedback message in the terminal, run
+`roslaunch echo /silva/reflex_local/ch0` for position feedback,
+
+and
+
+`roslaunch echo /silva/reflex_local/ch1` for current feedback(ibuki hardware launch needed).
 
 ## Citation
 Please cite the following papers in your publications if it helps your research:
