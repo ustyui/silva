@@ -24,3 +24,14 @@ To configure ibuki:
 1. Open mbed complier for obtaining complied ibuki's driver program.
 1. [Basic Configuration](/en/config.md) explains how to perform basic configuration.
 1. [Parameter Configuration](/en/parameters.md) explains how you can find and modify individual parameters.
+
+## Build Hardware Environment on Jetson AGX Xavier
+1. Download NVIDIA sdk manager, and connect the Xavier device according to the instruction on the webpage.
+
+2. Set the Xavier to Force Recovery Mode and Install the Image using NVIDIA AGX Xavier.
+
+3. After the Installation is finished, launch Xavier and change the overall performance with `sudo nvpmodel -m 0`
+
+4. Build libreaslsense by using the instruction on BuildLibrealsenseXavier.
+
+5.
