@@ -198,10 +198,10 @@ class tanh():
             ### main function ###
             
             self._payload[0] = int(WEIGHT_AMP[0]*self._gene[0]) + _threshold[0]
-            self._payload[1] = int(WEIGHT_AMP[1]*self._gene[1]) + _threshold[0]
-            self._payload[2] = int(WEIGHT_AMP[2]*self._gene[2]) + _threshold[0]
-            self._payload[3] = int(WEIGHT_AMP[3]*self._gene[3]) + _threshold[0]
-            self._payload[4] = int(WEIGHT_AMP[4]*self._gene[4]) + _threshold[0]
+            self._payload[1] = int(WEIGHT_AMP[1]*self._gene[1]) + _threshold[1]
+            self._payload[2] = int(WEIGHT_AMP[2]*self._gene[2]) + _threshold[2]
+            self._payload[3] = int(WEIGHT_AMP[3]*self._gene[3]) + _threshold[3]
+            self._payload[4] = int(WEIGHT_AMP[4]*self._gene[4]) + _threshold[4]
             
             self.make_message(1,1,self._payload)
             self.pub.publish(self._pub_msg)   

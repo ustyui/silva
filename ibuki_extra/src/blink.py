@@ -48,7 +48,7 @@ class eyelid():
         # publishers
         self.pub = rospy.Publisher('/silva/idle_local/intention', Evans, queue_size=10)
         self.pub_a = rospy.Publisher('/silva/auto_local/ch0', Evans, queue_size=10)
-        self.pub_b = rospy.Publisher('/silva/reflex_local/ch0', Evans, queue_size=10)
+        #self.pub_b = rospy.Publisher('/silva/reflex_local/ch0', Evans, queue_size=10)
         
         # subscribers
         self.sub_auto = rospy.Subscriber('/silva/auto_local/intention', Evans, self.state_cb)
@@ -188,12 +188,12 @@ class eyelid():
             # make message
             self.make_message()
             self.make_message_a()
-            self.make_message_b()
+            #self.make_message_b()
             
             # publish
             self.pub.publish(self._pub_msg)
             self.pub_a.publish(self._pub_msg_a)
-            self.pub_b.publish(self._pub_msg_b)
+            #self.pub_b.publish(self._pub_msg_b)
             if self._count > 10 * _RATE: #every 10 seconds
                 self._count = 0
                 self._bias = int(2*_RATE*rd.rand()) #bias within 2 seconds

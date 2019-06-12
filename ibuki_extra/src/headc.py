@@ -48,7 +48,7 @@ class neck():
         # publishers
         self.pub = rospy.Publisher('/silva/idle_local/intention', Evans, queue_size=10)
         self.pub_a = rospy.Publisher('/silva/auto_local/ch0', Evans, queue_size = 10)
-        self.pub_b = rospy.Publisher('/silva/reflex_local/ch0', Evans, queue_size=10)
+        # self.pub_b = rospy.Publisher('/silva/reflex_local/ch0', Evans, queue_size=10)
         # subscribers
         
     ### callback functions ###        
@@ -70,7 +70,7 @@ class neck():
                 # count to zero
                 self._ct[_sn] = 0
                 
-                _amp = 3 # for debug
+                _amp = 0.8 # for debug
                 _interval = _amp + _amp * rd.rand()
                 _randval = _interval - _amp
                 
@@ -195,8 +195,8 @@ class neck():
             self.pub.publish(self._pub_msg)              
             self.make_message(4,1,self._payload)
             self.pub_a.publish(self._pub_msg) 
-            self.make_message(2,1,self._payload)
-            self.pub_b.publish(self._pub_msg)             
+            #self.make_message(2,1,self._payload)
+            #self.pub_b.publish(self._pub_msg)             
             # else, do tanh/ sin move
             print self._payload
             
