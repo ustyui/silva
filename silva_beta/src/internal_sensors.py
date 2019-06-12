@@ -62,7 +62,7 @@ if __name__ == "__main__":
         for idx in range(0,5):
             payload_p.append(int(p_pos[idx*5:(idx+1)*5]))
         for idx in range(0,5):
-            payload_c.append(int(p_cur[idx*5:(idx+1)*5]))
+            payload_c.append(int(p_cur[idx*5:(idx+1)*5])*2-10000)
             
         # make message
         tform.make_message(pub_msg_p,2,dev_name,3,payload_p)
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         
         #print payload_p
         #print payload_c
-        #print position
+        print position
         
         # publish
         pub_p.publish(pub_msg_p)

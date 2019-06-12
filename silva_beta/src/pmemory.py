@@ -224,7 +224,7 @@ class pose():
         
     def fusion(self):
         
-        self._maskjoints[41] = 0
+        #self._maskjoints[41] = 0
         
         # designate means
         _sum = 2.0

@@ -118,6 +118,7 @@ if __name__ == "__main__":
         
         "generate one time message"    
         otm = tform.merge(joint._payload)
+        print otm
         
 #---------------------------------------------------------------------------            
         try:

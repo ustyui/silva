@@ -30,16 +30,15 @@ _MASK = [
         -1.3, -1, 1.3, -1.2, -1
         ]
 
-_filename = sys.argv[1]
-#_filename = 'lookaround'
-# open the .csv
-rospack = rospkg.RosPack()
-csvpath = rospack.get_path('silva_beta')+'/src/csv/'+_filename+'.csv'
-
-df = pd.read_csv(csvpath, delimiter=',')
-
 class csvslave():
-    def __init__(self, _df):
+    def __init__(self):
+        _filename = sys.argv[1]
+        #_filename = 'lookaround'
+        # open the .csv
+        rospack = rospkg.RosPack()
+        csvpath = rospack.get_path('silva_beta')+'/src/csv/'+_filename+'.csv'
+
+        df = pd.read_csv(csvpath, delimiter=',')
         # csv
         self._df =df
         self._timelist = []
@@ -140,7 +139,7 @@ class csvslave():
 if __name__ == "__main__":
     
     # pose class
-    hsm = csvslave(df)
+    hsm = csvslave()
     nh = rospy.init_node("HSM_csv")    
     hsm.start()
     # init nodes

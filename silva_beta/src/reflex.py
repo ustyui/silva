@@ -62,6 +62,7 @@ class poseblock():
         # 2 channels
         self.sub_ch0 = rospy.Subscriber('/silva/reflex_local/ch0', Evans, self.ch0_cb)
         self.sub_ch1 = rospy.Subscriber('/silva/reflex_local/ch1', Evans, self.ch1_cb)
+        self.sub_ch2 = rospy.Subscriber('/silva/reflex_local/ch2', Evans, self.ch2_cb)
         
         tform.set_zeros(self._default)
         tform.set_zeros(self._rel)
@@ -88,6 +89,7 @@ class poseblock():
                 self._bias[0][_cut*5 + _idx] = _payload[_idx]
                 
         # use this message to make the upperbody motion
+        
         self._bias[1][seq_of_jointname['arml']*5] = -28
         self._bias[1][seq_of_jointname['arml']*5+2] = 50 + 60 * sin(pi*_x/180) #45
         self._bias[1][seq_of_jointname['arml']*5+3] = -130
@@ -116,18 +118,24 @@ class poseblock():
     def ch0_cb(self, msg):
         _cut = seq_of_jointname[msg.name]        # cut method : from where
         _payload = msg.payload                   # get the payload
-        for _idx in range (0, len(_payload)):
-            self._bias[1][_cut*5 + _idx] = _payload[_idx] # store payload in bias
+#        for _idx in range (0, len(_payload)):
+#            self._bias[1][_cut*5 + _idx] = _payload[_idx] # store payload in bias
                 
     def ch1_cb(self, msg):
         _cut = seq_of_jointname[msg.name]        
         _payload = msg.payload                  
-        for _idx in range (0, len(_payload)):
-            self._bias[2][_cut*5 + _idx] = _payload[_idx]    
+#        for _idx in range (0, len(_payload)):
+#            self._bias[2][_cut*5 + _idx] = _payload[_idx]    
+        
+    def ch2_cb(self, msg):    
+        _payload = msg.payload                  
+
+        self._bias[2] = _payload 
         
     def set_msg_from_pos(self):
         mult_ch = np.array(self._bias)
-        self._rel = mult_ch[1] + mult_ch[2] # MENTION HERE: feedback not included in the sum!
+        self._rel = mult_ch[2]
+        #self._rel = mult_ch[1] + mult_ch[2] # MENTION HERE: feedback not included in the sum!
         # add intentions to default
         self._payload = list(np.array(self._rel))
     

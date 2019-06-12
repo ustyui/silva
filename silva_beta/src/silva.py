@@ -10,7 +10,7 @@ import sys, time
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-import sip
+import sip, os
 
 import rospy, rospkg, threading, webbrowser
 from silva_beta.msg import Evans
@@ -307,8 +307,12 @@ class MainWindow(QMainWindow):
         button.move(110,110)
         button.clicked.connect(self.on_click)
         
-        # Button Actions of Table Widgets
+        #### Button Actions of Table Widgets ###
         self.table_widget.pushButton[0].clicked.connect(self.on_reset)
+        self.table_widget.pushButton[1].clicked.connect(self.on_lookaround)
+        self.table_widget.pushButton[2].clicked.connect(self.on_wavehand)
+        
+        
         
         
         
@@ -380,6 +384,11 @@ class MainWindow(QMainWindow):
         print('Motion reset.')
         for i in range(0, 50):
             self.sld[i].setValue(0)
+    def on_lookaround(self):
+        print('Look around.')
+        os.system('rosrun silva_beta HSM_csv.py lookaround')
+    def on_wavehand(self):
+        os.system('rosrun silva_beta HSM_csv.py wavehand')
         
     @pyqtSlot()
     def link_to(self, url):
@@ -419,6 +428,8 @@ class MyTableWidget(QWidget):
         
         # StatusTip
         self.pushButton[0].setStatusTip('Reset Operation Inputs of the User to 0.')
+        self.pushButton[1].setStatusTip('Ibuki looks around motion preset.')
+        self.pushButton[2].setStatusTip('Ibuki waves his left hand preset.')
         
         for index in range(0,10):
             self.tab1.layout.addWidget(self.pushButton[index])
@@ -508,7 +519,7 @@ class ButtomWidget(QWidget):
         sn = seq_of_jointname[msg.name]
         
         for idx in range(0,5):
-            self.cur_value[sn*5+idx] = (temp_buffer[idx]-5000)*20
+            self.cur_value[sn*5+idx] = (temp_buffer[idx])
             
             
 if __name__ == '__main__':
