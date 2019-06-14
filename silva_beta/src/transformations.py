@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import rospy, rospkg, yaml
+import numpy as np
 _driveunits = 50 # 50 is ibuki driveunits number
 
 """
@@ -185,13 +186,29 @@ def load_map(_which = 'ibuki'):
 # read from .yaml file
 
 #==============================================================================   
-def read_param(_name = 'ibuki'):
+def read_param(_name = 'ibuki', _pkg = 'silva_beta'):
     rospack = rospkg.RosPack()
-    param_path = rospack.get_path('silva_beta')+'/params/'+_name+'.yaml'
+    param_path = rospack.get_path(_pkg)+'/params/'+_name+'.yaml'
     f = open(param_path, "r+")
     param_config = yaml.load(f)
     
     return param_config
 
+#==============================================================================
+# deg to ibk
+# mask can be futurelly read from .yaml file
+# input: array or int of deg format commands
+# output: array or int of ibuki format commands
+#==============================================================================  
+def deg2ibk(_deg):
+    ppi = 3.0303
+    if type(_deg) is list or type(_deg) is np.ndarray:
+
+        deg = np.array(_deg)
+        ibk = ppi* deg
+        _ibk = list(ibk.astype(int))
+        return _ibk
+    if type(_deg) is int:
+        return int(ppi*_deg)
         
-_version = "2019"
+_version = "2019.06"

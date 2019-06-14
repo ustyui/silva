@@ -138,8 +138,14 @@ class MainWindow(QMainWindow):
         tform.set_zeros(self.labels)
         tform.set_zeros(self.fb_value)
 
-
+        
         self.progress = [0,0,0,0] 
+        
+        # expressions
+        self.expression = []
+        # obtain expressions
+        param_config = tform.read_param('momentary_motion','ibuki_extra')
+        self.expression = param_config['Expression']
         
         self.index =0
         
@@ -311,9 +317,13 @@ class MainWindow(QMainWindow):
         self.table_widget.pushButton[0].clicked.connect(self.on_reset)
         self.table_widget.pushButton[1].clicked.connect(self.on_lookaround)
         self.table_widget.pushButton[2].clicked.connect(self.on_wavehand)
-        
-        
-        
+        self.table_widget.pushButton[3].clicked.connect(self.on_happiness)
+        self.table_widget.pushButton[4].clicked.connect(self.on_sadness)
+        self.table_widget.pushButton[5].clicked.connect(self.on_surprise)  
+        self.table_widget.pushButton[6].clicked.connect(self.on_fear)  
+        self.table_widget.pushButton[7].clicked.connect(self.on_anger)  
+        self.table_widget.pushButton[8].clicked.connect(self.on_disgust) 
+        self.table_widget.pushButton[9].clicked.connect(self.on_contempt)  
         
         
         # Create progressbar of IRSA
@@ -370,10 +380,6 @@ class MainWindow(QMainWindow):
         for idx in range(0,5):
             self.fb_value[sn*5+idx] = temp_buffer[idx]
             
-
-        
-        
-
     @pyqtSlot()
     def on_click(self):
         self._contents = self.textbox.text()
@@ -389,6 +395,41 @@ class MainWindow(QMainWindow):
         os.system('rosrun silva_beta HSM_csv.py lookaround')
     def on_wavehand(self):
         os.system('rosrun silva_beta HSM_csv.py wavehand')
+        
+    def on_happiness(self):
+        print('Happiness.')
+        for i in range(0,50):
+            self.sld[i].setValue(self.expression['happiness'][i])
+            
+    def on_sadness(self):
+        print('Sadness.')
+        for i in range(0,50):
+            self.sld[i].setValue(self.expression['sadness'][i])
+            
+    def on_surprise(self):
+        print('Surprise')
+        for i in range(0,50):
+            self.sld[i].setValue(self.expression['surprise'][i])
+    
+    def on_fear(self):
+        print('Fear.')
+        for i in range(0,50):
+            self.sld[i].setValue(self.expression['fear'][i])
+    
+    def on_anger(self):
+        print('Anger.')
+        for i in range(0,50):
+            self.sld[i].setValue(self.expression['anger'][i])
+    
+    def on_disgust(self):
+        print('Disgust.')
+        for i in range(0,50):
+            self.sld[i].setValue(self.expression['disgust'][i])
+    
+    def on_contempt(self):
+        print('Contempt.')
+        for i in range(0,50):
+            self.sld[i].setValue(self.expression['contempt'][i])
         
     @pyqtSlot()
     def link_to(self, url):
@@ -422,14 +463,25 @@ class MyTableWidget(QWidget):
         self.pushButton[0] = QPushButton("Reset")
         self.pushButton[1] = QPushButton("Look around")
         self.pushButton[2] = QPushButton("Wave Hand")  
-        
-        for index in range(3,10):
-            self.pushButton[index] = QPushButton("Motion"+str(index))
+        self.pushButton[3] = QPushButton("Hapiness")
+        self.pushButton[4] = QPushButton("Sadness")
+        self.pushButton[5] = QPushButton("Surprise")
+        self.pushButton[6] = QPushButton("Fear")
+        self.pushButton[7] = QPushButton("Anger")
+        self.pushButton[8] = QPushButton("Disgust")
+        self.pushButton[9] = QPushButton("Contempt")
         
         # StatusTip
         self.pushButton[0].setStatusTip('Reset Operation Inputs of the User to 0.')
         self.pushButton[1].setStatusTip('Ibuki looks around motion preset.')
         self.pushButton[2].setStatusTip('Ibuki waves his left hand preset.')
+        self.pushButton[3].setStatusTip('Ibuki show hapiness.')
+        self.pushButton[4].setStatusTip('Ibuki show sadness.')
+        self.pushButton[5].setStatusTip('Ibuki show surprise.')
+        self.pushButton[6].setStatusTip('Ibuki show fear.')
+        self.pushButton[7].setStatusTip('Ibuki show anger.')
+        self.pushButton[8].setStatusTip('Ibuki show disgust.')
+        self.pushButton[9].setStatusTip('Ibuki show contempt.')
         
         for index in range(0,10):
             self.tab1.layout.addWidget(self.pushButton[index])
@@ -563,7 +615,7 @@ if __name__ == '__main__':
         for idx in range (0, len(main_window.state)):
             
             main_window.progress[idx].setValue(int(main_window.state[idx]*100))
-            main_window.sld[2].setValue(int(main_window.sldn[1].text()))
+            #main_window.sld[2].setValue(int(main_window.sldn[1].text()))
         
         for idx in range (0, 45):
             fb = int(main_window.fb_value[idx]*0.1)-main_window.default[idx]
