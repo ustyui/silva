@@ -6,7 +6,7 @@
 
 |ROS Version|Kinetic|Melodic|
 |  :---:|  :---:|  :---:|
-|Build Status|[![Build Status](https://travis-ci.org/ustyui/silva.svg?branch=master)](https://travis-ci.org/ustyui/silva)|[![Build Status](https://travis-ci.org/ustyui/silva.svg?branch=master)](https://travis-ci.org/ustyui/silva)|  
+|Build Status|[![Build Status](https://travis-matrix-badges.herokuapp.com/repos/ustyui/silva/branches/master/1)](https://travis-ci.org/ustyui/silva)|[![Build Status](https://travis-matrix-badges.herokuapp.com/repos/ustyui/silva/branches/master/2)](https://travis-ci.org/ustyui/silva)|  
 
 It is authored by [**Shiqi Yu**](https://shiqi-yu.com/), **Naoki Ise**, **Yifei Wang** and [**Yoshihiro Nakata**](http://yoshihiro-nakata.sakura.ne.jp/). Currently, it is being maintained by [**Shiqi Yu**](https://shiqi-yu.com/). To use **silva**, A ROS environment under linux is necessary. For detail handbooks, please refer to [**ibukiDEVGuide**](/ibukiDEVGuide).
 
