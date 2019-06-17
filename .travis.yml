@@ -15,11 +15,13 @@ compiler:
 
 matrix:
   include:
-  - name: "Xenial kinetic"
+  - os: linux
+    name: "Xenial kinetic"
     dist: xenial
     env: ROS_DISTRO=kinetic
  
-  - name: "Bionic melodic"
+  - os: linux
+    name: "Bionic melodic"
     dist: bionic
     env: ROS_DISTRO=melodic
 
