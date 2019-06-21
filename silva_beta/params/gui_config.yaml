@@ -55,8 +55,8 @@ headr:
   4: chin_p
 
 hip:
-  0: hip_r
-  1: hip_p
+  0: hip_p
+  1: hip_r
   2: hip_y
   3: null
   4: null
