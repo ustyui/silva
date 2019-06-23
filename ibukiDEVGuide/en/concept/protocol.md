@@ -38,3 +38,9 @@ The table of priority is shown under the table.
 **msgid: message id. Different message with different functions has different msgid.**
 
 **payload: The motion command payload of the message. Now there are 3 types of payload format.**
+
+## Message Index
+| message name | name | seq | msgid | payload | related nodes | function |
+|--------------|------|-----|-------|---------|---------------|----------|
+| /silva/joint_local/default | default | 0 | 0 | 1*50 array | pmemory, I, R, S, A|announce default(initial) posture of the robot |
+| /silva/joint_local/fusion | fusion | 0 |  0 | 1*50 array | pmemory, joint_interface | send the mixed output for |
