@@ -56,7 +56,7 @@ class poseblock():
         self.sub_ch0 = rospy.Subscriber('/silva/auto_local/ch0', Evans, self.ch0_cb)    # ch0 for blink message (headl)
         self.sub_ch1 = rospy.Subscriber('/silva/auto_local/ch1', Evans, self.ch1_cb)    # ch1 for realsense (neck)
         self.sub_ch2 = rospy.Subscriber('/silva/auto_local/ch2', Evans, self.ch2_cb)    # ch2 for rplidar (neck)
-        self.sub_ch3 = rospy.Subscriber('/silva/auto_local/ch3', Evans, self.ch3_cb)    # ch3 for  
+        self.sub_ch3 = rospy.Subscriber('/silva/auto_local/ch3', Evans, self.ch3_cb)    # ch3 for usb_cam (neck)
         
         self.sub_default = rospy.Subscriber('/silva/joint_local/default', Evans, self.default_cb)
         
