@@ -44,3 +44,4 @@ The table of priority is shown under the table.
 |--------------|------|-----|-------|---------|---------------|----------|
 | /silva/joint_local/default | default | 0 | 0 | 1*50 array | pmemory, I, R, S, A|announce default(initial) posture of the robot |
 | /silva/joint_local/fusion | fusion | 0 |  0 | 1*50 array | pmemory, joint_interface | send the mixed output for |
+| /silva/joint_auto/ch3 | (bodypart) | 0 | 0 | 1*5 array |  auto, |
