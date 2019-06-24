@@ -45,6 +45,6 @@ The table of priority is shown under the table.
 | /silva/joint_local/default | default | 0 | 0 | 1*50 array | pmemory, I, R, S, A|announce default(initial) posture of the robot |
 | /silva/joint_local/fusion | fusion | 0 |  0 | 1*50 array | pmemory, joint_interface | send the mixed output to joint drivers |
 | /silva/reflex_local/ch0 |(bodypart)|0|0|1*5 array | R, internal sensor | get the potential meter feedback (angle) |
-| /silva/reflex_local/ch0 |(bodypart)|0|0|1*50 array | R, internal sensor | get the current meter feedback (current) |
+| /silva/reflex_local/ch1 |(bodypart)|0|0|1*5 array | R, internal sensor | get the current meter feedback (current) |
 | /silva/idle_local/intention | | 0 | 0 | 
 | /silva/auto_local/ch3 | (bodypart) | 0 | 0 | 1*5 array |  auto, developing | developing |
