@@ -11,7 +11,7 @@ The coordination frame of each joint is set as follows.
 
 **For example, when ibuki faces you, the neck looks the right side of the image, the direction is +1**
 
-<img src="https://github.com/ustyui/ibuki-img/blob/master/Picture1.jpg?raw=true" width="200" ><img src="https://github.com/ustyui/ibuki-img/blob/master/Picture2.png?raw=true" width="330" >
+<img src="https://github.com/ustyui/ibuki-img/blob/master/Picture1.jpg?raw=true" width="200" ><img src="https://github.com/ustyui/ibuki-img/blob/master/cf%403x.png?raw=true" width="330" >
 
 
 ## Simulation Model Initial Posture and Joint Mapping of Ibuki
