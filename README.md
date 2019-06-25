@@ -77,7 +77,8 @@ rostopic echo /silva/slave_local/operation
 ```
 
 ### Messages
-Silva has different type of messages based on its framework.
+Silva has different type of messages.
+To check messages and the protocol in use, see [here](/ibukiDEVGuide/en/concept/protocol.md).
 
 You can check the message type by using
 ```
