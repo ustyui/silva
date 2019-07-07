@@ -105,3 +105,6 @@ and
 ## Citation
 Please cite the following papers in your publications if it helps your research:
 
+## Acknowledgements
+This work was supported by JST ERATO Grant Number JPMJER1401, Japan.
+
