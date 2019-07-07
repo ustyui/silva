@@ -8,7 +8,7 @@
 |  :---:|  :---:|  :---:|
 |Build Status|[![Build Status](https://travis-matrix-badges.herokuapp.com/repos/ustyui/silva/branches/master/1)](https://travis-ci.org/ustyui/silva)|[![Build Status](https://travis-matrix-badges.herokuapp.com/repos/ustyui/silva/branches/master/2)](https://travis-ci.org/ustyui/silva)|  
 
-It is authored by [**Shiqi Yu**](https://shiqi-yu.com/), **Satoshi Yagi**, **Naoki Ise**, **Yifei Wang** and [**Yoshihiro Nakata**](http://yoshihiro-nakata.sakura.ne.jp/). Currently, it is being maintained by [**Shiqi Yu**](https://shiqi-yu.com/). To use **silva**, A ROS environment under linux is necessary. For detail handbooks, please refer to [**ibukiDEVGuide**](/ibukiDEVGuide).
+It is authored by [**Shiqi Yu**](https://shiqi-yu.com/), **Satoshi Yagi**, **Naoki Ise**, **Yifei Wang** and [**Yoshihiro Nakata**](http://yoshihiro-nakata.sakura.ne.jp/) from **Osaka University, Japan**. Currently, it is being maintained by [**Shiqi Yu**](https://shiqi-yu.com/). To use **silva**, A ROS environment under linux is necessary. For detail handbooks, please refer to [**ibukiDEVGuide**](/ibukiDEVGuide).
 
 <p align="center">
     <img src="ibukiDEVGuide/assets/images/motion_upper_body.gif", width="320">
