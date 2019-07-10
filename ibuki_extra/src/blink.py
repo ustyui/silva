@@ -64,7 +64,8 @@ class eyelid():
             self._mental = msg.payload[1]
             
     def joy_cb(self,msg):
-        self._physical = 0.5*(msg.axes[0] + 1)
+        if msg.header.frame_id == 'main':
+            self._physical = 0.5*(msg.axes[0] + 1)
         
     # rythem function
     def rythem_d(self, _count):
