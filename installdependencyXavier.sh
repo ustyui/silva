@@ -26,6 +26,7 @@ sudo apt-get install nkf
 sudo apt-get install ant
 
 if [ "$JETSON_BOARD" == "AGX Xavier" ] ; then 
+  sudo -H apt-get install python-pip -y
   # install respeaker pre-dependencies
   sudo -H apt-get install libportaudio2 -y
   sudo -H apt-get install python-pyaudio
