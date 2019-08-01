@@ -1,6 +1,6 @@
 <package format="2">
   <name>silva</name>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
   <description>
   The silva android operation system controls android motion by using a developed framework by merging multiple motion generator models.
   </description>
@@ -12,7 +12,7 @@
   <author>Shiqi Yu</author>
   <buildtool_depend>catkin</buildtool_depend>
   
-  <exec_depend>silva_beta</exec_depend>
+  <exec_depend>silva</exec_depend>
   <exec_depend>ibuki_extra</exec_depend>
   <exec_depend>korg_nanokontrol</exec_depend>
   <exec_depend>usb_cam</exec_depend>
