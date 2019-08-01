@@ -98,7 +98,7 @@ script:
   - sudo -H apt-get install libportaudio2 -y
   - sudo -H apt-get install python-pyaudio
   # change mod for all of the python scripts
-  - cd ~/catkin_ws/src/silva/silva_beta/src
+  - cd ~/catkin_ws/src/silva/silva_core/src
   - sudo chmod u+x *.py
   - cd ~/catkin_ws/src/silva/ibuki_extra/src
   - sudo chmod u+x *.py
