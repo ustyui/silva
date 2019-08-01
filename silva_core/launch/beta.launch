@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+	<node name="Mixer" pkg="silva_core" type="mixer.py" output="screen"/>
+	<node name="Act_armr" pkg="silva_core" type="actuator.py" args="armr" output="screen"/>
+
+	<node name="Act_neck" pkg="silva_core" type="actuator.py" args="neck" output="screen"/>
+
+	<node name="Act_arml" pkg="silva_core" type="actuator.py" args="arml" output="screen"/>
+
+	<node name="Act_headl" pkg="silva_core" type="actuator.py" args="headl" output="screen"/>
+
+	<node name="Act_headc" pkg="silva_core" type="actuator.py" args="headc" output="screen"/>
+
+	<node name="Act_headr" pkg="silva_core" type="actuator.py" args="headr" output="screen"/>
+
+	<node name="Act_handl" pkg="silva_core" type="actuator.py" args="handl" output="screen"/>
+
+	<node name="Act_handr" pkg="silva_core" type="actuator.py" args="handr" output="screen"/>
+
+	<node name="Act_hip" pkg="silva_core" type="actuator.py" args="hip" output="screen"/>
+
+	<node name="Act_wheel" pkg="silva_core" type="actuator.py" args="wheel" output="screen"/>
+
+</launch>

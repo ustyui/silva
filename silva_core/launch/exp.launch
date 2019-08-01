@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+	<node name="Mixer" pkg="silva_core" type="mixer.py" output="screen"/>
+	<node name="Act_arml" pkg="silva_core" type="actuator.py" args="arml" output="screen"/>
+	<node name="filter_SLAVE" pkg="silva_beta" type="slave.py" output="screen"/>
+
+</launch>
