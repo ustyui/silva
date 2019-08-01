@@ -1,7 +1,0 @@
-<launch>
-	<node name="IMG_PUBLISH" pkg="darknet_ros" type="convert_flipped_image.py" />
-	<include file="$(find darknet_ros)/launch/face_detect.launch"/>
-	<node name="FACE_POS" pkg="darknet_ros" type="facePos.py" />
-	<node name="TRACKING" pkg="ibuki_extra" type="face_tracking.py" />
-
-</launch>
