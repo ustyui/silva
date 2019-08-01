@@ -1,0 +1,72 @@
+neck:
+  0: sld_r
+  1: sld_l
+  2: neck_r
+  3: neck_y
+  4: neck_p
+
+arml:
+  0: arml_u_r
+  1: arml_u_y
+  2: elbowl_p
+  3: elbowl_y
+  4: wristl_r
+
+armr:
+  0: armr_u_r
+  1: armr_u_y
+  2: elbowr_p
+  3: elbowr_y
+  4: wristr_r
+
+handl:
+  0: handl_t
+  1: handl_i
+  2: handl_m
+  3: handl_r
+  4: handl_l
+
+handr:
+  0: handr_t
+  1: handr_i
+  2: handr_m
+  3: handr_r
+  4: handr_l
+
+headl:
+  0: opthron
+  1: eyelid_u
+  2: eyelid_d
+  3: face_r
+  4: face_l
+
+headc:
+  0: eyebow_r
+  1: eyebow_l
+  2: eye_r
+  3: eye_l
+  4: eye_p
+
+headr:
+  0: lip_u
+  1: lip_d
+  2: mouth_r
+  3: mouth_l
+  4: chin_p
+
+hip:
+  0: hip_p
+  1: hip_r
+  2: hip_y
+  3: null
+  4: null
+
+wheel:
+  0: linear
+  1: drive_r
+  2: drive_l
+  3: break
+  4: null
+
+
+
