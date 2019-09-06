@@ -7,15 +7,20 @@ To make the procedure easy to understood, we use a opensource humanoid platform 
 The demonstration of the robot body will be shown in gazebo simulator, as a large-community robot simulator.
 
 ## Create a .map init file
-By adapting silva to different robot interfaces a .map file is needed to tell silva that what should be the robot's initial pose is.<br>
+By adapting silva to different robot interfaces a .map file is needed to tell silva that what should be the robot's **initial pose** is.<br>
 It means that users use this file to initialzie input values which can make the robot show a human-liked static posture.<br>
 
-As mechanically, every robot has its default morphology, which includes:
+As mechanically, every robot has its **default morphology**, which includes:
 * Designed to minimize the potential energy,
 * Compliant to the gravity,
 * Designed human-liked,
 * Randomly Positioned,
 * etc.
+
+In Darwin the robot **default morphology** shows like this:
+<p align="center">
+  <img width="500" src="/ibukiDEVGuide/assets/images/Darwin/default.png">
+</p>
 
 In silva, as the system is used to make human-liked motion behaviors,
 in the beginning, this file is used for silva to initialize the robot.
@@ -35,5 +40,21 @@ driveunits  numberofdofs
 ...
 12  j_gripper_r -1
 ```
+**robotname** is the name of your robot, it is suggested to use all lower case letters.
+The robotname variable will help silva to identify the robot and find other config files for the system.<br>
+**driveunits** is the number of degrees of freedom(DoFs) of the robot.
+In Darwin robot, there are 12 DoFs for silva to drive.<br>
+**defaults**
+The format of defaults are written as below:
+```
+<serialnumber></tab><jointname></tab><initpos>
+```
+The values of initpos are decided to ensure the robot whole body is posed at a user defined posture.
+Each time the system starts, the posture of the robot will be controlled according to the values of initpos.
+
+The **init file** will finally make the robot posture as below (with the help of silva):
+<p align="center">
+  <img width="500" src="/ibukiDEVGuide/assets/images/Darwin/init.png">
+</p>
 
 
