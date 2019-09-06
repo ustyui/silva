@@ -25,7 +25,8 @@ In Darwin the robot **default morphology** shows like this:
 In silva, as the system is used to make human-liked motion behaviors,
 in the beginning, this file is used for silva to initialize the robot.
 
-The format of .map file is as follows: (You can check the file in silva_core/params/darwin.map)
+The format of .map file is as follows: (You can check the file in silva_core/params/darwin.map)<br>
+**Note:** Please name the file as yourrobotname.map
 ```
 ------config----------
 robotname   yourrobotname
@@ -56,5 +57,43 @@ The **init file** will finally make the robot posture as below (with the help of
 <p align="center">
   <img width="500" src="/ibukiDEVGuide/assets/images/Darwin/init.png">
 </p>
+
+## Create a parameter .yaml file
+A .yaml file is needed to save some important **static parameters** for a robot. It may includes:
+* Control rates,
+* IP/ports, serial port names,
+* Control sequences, clocks,
+* etc.
+
+The format of .map file is as follows: (You can check the file in silva_core/params/darwin.yaml)<br>
+**Note:** Please name the file as yourrobotname.yaml
+```
+Config:
+  robotname: darwin
+  driveunits: 12
+  stacks: 4
+
+Rates:
+  default: 30
+  broadcast: 2
+  mixer: 40
+  gui: 50
+  idle: 30
+  reflex: 30
+  slave: 30
+  auto: 30
+  actuator: 50
+  feedback: 25
+
+SequenceOfJoints:
+  neck: 0
+  arml: 1
+  armr: 2
+
+```
+A .yaml file must have Config table ,Rates table and SequenceOfJoints table, as necessary **static parameters** for silva.
+For other **static parameters**, developers can add or delete for actual usage, as different robot need to be programmed into a different **adapter interface**.<bn>
+
+**Config**: Similar in .map **init file**, as 
 
 
