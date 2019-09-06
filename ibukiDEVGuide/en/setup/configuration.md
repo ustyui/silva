@@ -94,6 +94,17 @@ SequenceOfJoints:
 A .yaml file must have Config table ,Rates table and SequenceOfJoints table, as necessary **static parameters** for silva.
 For other **static parameters**, developers can add or delete for actual usage, as different robot need to be programmed into a different **adapter interface**.<bn>
 
-**Config**: Similar in .map **init file**, as 
+**Config**: Similar in .map **init file**, need to note that **stack** stands for
+when controlling the robot, how many DoFs in a group is for one **acutator interface node**.
+For example if the stack number is 4, in each **actuator interface node**, the control DoFs are 4.
+
+The number of **SequenceOfJoints** equals to `driveunits/stacks`.
+It means the corresponding serialnumber for each **acutator interface node**.
+For the usage, see **message processing**.
+
+**Rates** is the publish rate for the nodes of the silva system.
+For the node descriptions, see **system architecture**<bn>
+**default**: If there is no correspondent node name in the Rate table, the node will adapte default value as the rate.
+**broadcast**: The broadcast message rate.
 
 
