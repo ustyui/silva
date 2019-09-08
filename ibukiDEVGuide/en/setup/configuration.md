@@ -6,7 +6,7 @@ We try to keep these procedures simple, so that users could focus on designing h
 To make the procedure easy to understood, we use a opensource humanoid platform Darwin to illustrate how the configuration work.
 The demonstration of the robot body will be shown in gazebo simulator, as a large-community robot simulator.
 
-## Create a .map init file
+## 1. Create a .map init file
 By adapting silva to different robot interfaces a .map file is needed to tell silva that what should be the robot's **initial pose** is.<br>
 It means that users use this file to initialzie input values which can make the robot show a human-liked static posture.<br>
 
@@ -58,7 +58,33 @@ The **init file** will finally make the robot posture as below (with the help of
   <img width="500" src="/ibukiDEVGuide/assets/images/Darwin/init.png">
 </p>
 
-## Create a parameter .yaml file
+## 2. Create a .map limit file
+In silva, the joint position of the robot will be limited by controlling the output of silva.
+The format of .map limit file is as follows: (Also check it in silva_core/params/darwin_limit.map)<br>
+**Note:** Please name the file as limit_yourrobotname.map
+```
+------config----------
+robotname   yourrobotname
+driveunits  numberofdofs
+------limits--------
+1   j_shoulder_r    -1  1
+2   j_shoulder_l    -1  1
+3   j_pan   -1  1
+4   j_tilt  -1  1
+5   j_high_arm_l    -2  2
+6   j_low_arm_l -2  2
+...
+12  j_gripper_r -1  1
+```
+The only difference with .map init file is that after every jointname there are two values.
+The first one is the lower limit and the second one is the upper limit.
+
+The format of limits are written as below:
+```
+<serialnumber></tab><jointname></tab><lowerlimit></tab><upperlimit>
+```
+
+## 3. Create a parameter .yaml file
 A .yaml file is needed to save some important **static parameters** for a robot. It may includes:
 * Control rates,
 * IP/ports, serial port names,
