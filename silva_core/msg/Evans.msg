@@ -1,7 +1,7 @@
 Header header
 
 string name
-uint8 seq
+uint8 level
 uint8 msgid
-int16[] payload
+float32[] payload
 

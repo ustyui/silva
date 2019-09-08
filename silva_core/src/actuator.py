@@ -74,11 +74,14 @@ if __name__ == "__main__":
 
     nh = rospy.init_node('Act_'+dev_name, anonymous = True)
     param_config = utils.read_param()
+    dyna_params = utils.read_param('dynamic_params')
     
     _SEQ_OF_JOINTNAME = param_config['SequenceOfJoints']
     _RATE = param_config['Rates']['actuator']
     _IP = param_config['IP']
     _PORT = param_config['PORT']
+    
+    rospy.set_param('CUR_OUT_MASK', dyna_params['CUR_OUT_MASK'])
     
     rate = rospy.Rate(_RATE)    
     
@@ -86,6 +89,7 @@ if __name__ == "__main__":
     
     sub = rospy.Subscriber(topics.com['mixer'], Evans, callback, Mbed_joint)
     
+    # if wheel args
     if dev_name == 'wheel':
         # reduce queue size for acceleration
         pub = rospy.Publisher(topics.feedback['wheelencoder'],Evans, queue_size = 2)
@@ -99,6 +103,7 @@ if __name__ == "__main__":
     
     rospy.loginfo("Silva "+dev_name+" Actuators at "+str(_RATE)+"Hz OK")
     
+    # check living state of ethernet
     run_event_check = threading.Event()
     run_event_check.set()
     monitor_t = threading.Thread(target = mbed_living_state, args = \

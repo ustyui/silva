@@ -65,9 +65,9 @@ def load_map(_name = 'ibuki', _pkg = 'silva_core'):
 # 
 # make evans message
 #==============================================================================        
-def make_message(msg, name, seq, msgid, payload):
+def make_message(msg, name, level, msgid, payload):
     msg.header.stamp = rospy.Time.now()
-    msg.seq = seq
+    msg.level = level
     msg.name = name
     msg.msgid = msgid
     msg.payload = payload  

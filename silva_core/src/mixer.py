@@ -15,19 +15,25 @@ import numpy as np
 import utils, topics
 
 class Mixer():
-    # _name: dev_name
+
     
     def __init__(self, dev_name):
+        # _name: dev_name
         self._name = dev_name
-        self._default, __void = utils.load_map()
+        # load init map file with the name robotname.map
+        self._default, __void = utils.load_map(self._name)
+        
+        # joint array in driveunits numbers
         self._joint_idle = np.zeros(_DRIVEUNITS)
         self._joint_reflex = np.zeros(_DRIVEUNITS)
         self._joint_slave = np.zeros(_DRIVEUNITS)
         self._joint_auto = np.zeros(_DRIVEUNITS)
         
-        self._joint_min, self._joint_max = np.array(utils.load_map('limit'))
+        # load limit configuration file of the robot with the name limit_robotname.map
+        self._joint_min, self._joint_max = np.array(utils.load_map('limit_'+self._name))
         self._temp = np.array([0, 0, 2, 0])
         self._covs = self._temp
+        self._hw_adj = 0.0
         
         self._default_msg = Evans()
         self._state_msg = Float32MultiArray()
@@ -107,7 +113,13 @@ class Mixer():
     def fusion(self):
         # designate means: _sum = 2.0 because the scale of midi slider is 2.0
         _sum = 2.0
-        self._covs = self._temp/_sum
+        if (rospy.get_param('WEIGHT_HW_ADJUST') == 1): 
+            self._covs = self._temp/_sum
+        else:
+            self._covs = [rospy.get_param('WEIGHT_IDLE'),
+                          rospy.get_param('WEIGHT_REFLEX'),
+                          rospy.get_param('WEIGHT_SLAVE'),
+                          rospy.get_param('WEIGHT_AUTO')]
         self._jointmeans = np.array(self._covs[0]*self._joint_idle+ self._covs[1]*self._joint_reflex +\
                                 self._covs[2]*self._joint_slave + self._covs[3]*self._joint_auto)
         # mask
@@ -135,17 +147,25 @@ if __name__ == "__main__":
     
     nh = rospy.init_node("Mixer")
     param_config = utils.read_param()
-    dyna_params = utils.read_param('dynamic_params')
     if (param_config == 0):
         rospy.logfatal("Mixer: Fail to load robot parameters. Check /params folder to ensure the yaml file are correctly set. Code 10")
+    
+    # static parameters
     dev_name = param_config['Config']['robotname']
     _DRIVEUNITS = param_config['Config']['driveunits']
     _RATE = param_config['Rates']['mixer']
     _TRATE = param_config['Rates']['broadcast']
     
-    # rosparam set
+    # rosparam set    
+    dyna_params = utils.read_param('dyna_params_'+dev_name)    
+
     rospy.set_param('JOINT_MASK_H', dyna_params['JOINT_MASK_H'])
     rospy.set_param('JOINT_MASK_L', dyna_params['JOINT_MASK_L'])
+    rospy.set_param('WEIGHT_HW_ADJUST', dyna_params['WEIGHT_HW_ADJUST'])
+    rospy.set_param('WEIGHT_IDLE', dyna_params['WEIGHT_IDLE'])
+    rospy.set_param('WEIGHT_REFLEX', dyna_params['WEIGHT_REFLEX'])
+    rospy.set_param('WEIGHT_SLAVE', dyna_params['WEIGHT_SLAVE'])
+    rospy.set_param('WEIGHT_AUTO', dyna_params['WEIGHT_AUTO'])
     
     Mbus = Mixer(dev_name)
     rospy.loginfo("Silva Core Mixer Rate at "+str(_RATE)+"Hz OK")
