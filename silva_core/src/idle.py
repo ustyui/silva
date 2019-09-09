@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Sep 9  16:47:41 2019
-slave node
+Idle node
 @author: ustyui
 """
 import rospy
@@ -20,10 +20,10 @@ class Poseblock():
         
         self._pub_msg = Evans()
         
-        self.pub = rospy.Publisher(topics.com['slave'], Evans, queue_size = 3)
+        self.pub = rospy.Publisher(topics.com['idle'], Evans, queue_size = 3)
         #init : sub channels, channel callback subloads
-        self.sub = [[]]*len(topics.slave) 
-        self.subload = [[]]*len(topics.slave) 
+        self.sub = [[]]*len(topics.idle) 
+        self.subload = [[]]*len(topics.idle) 
         
         while not rospy.is_shutdown():
             if rospy.has_param('DRIVE_UNITS'):
@@ -35,21 +35,16 @@ class Poseblock():
         for i in range(len(self.subload)):
             self.subload[i] = [0] * rospy.get_param('DRIVE_UNITS')
         
-        for i in range(0, len(topics.slave)):
+        for i in range(0, len(topics.idle)):
             
-            self.sub[i]=rospy.Subscriber(topics.slave[i], Evans, self.channel_cb, i)
+            self.sub[i]=rospy.Subscriber(topics.idle[i], Evans, self.channel_cb, i)
         
     def channel_cb(self, msg, args): 
         instance = args
-        # pass it as it is
-        if instance == 0 or instance == 1:
-            self.subload[instance] = np.raray(msg.payload)
-        # sort labeled method
-        else:
-            self.subload[instance] = utils.sort_labeled(self.subload[instance], msg, _SEQ_OF_JOINTNAME)
+        self.subload[instance] = utils.sort_labeled(self.subload[instance], msg, _SEQ_OF_JOINTNAME)
         
     def start(self):
-        rospy.loginfo("Silva slave Rate at "+str(_RATE)+"Hz OK")
+        rospy.loginfo("Silva Idle Rate at "+str(_RATE)+"Hz OK")
         loop_rate = rospy.Rate(_RATE)
         while not rospy.is_shutdown():
             # submixer
@@ -60,7 +55,7 @@ class Poseblock():
                 
             # print summux
             # make message
-            utils.make_message(self._pub_msg, 'slave', 1, 0, summux)
+            utils.make_message(self._pub_msg, 'idle', 1, 0, summux)
             self.pub.publish(self._pub_msg)
             
             loop_rate.sleep()
@@ -68,7 +63,7 @@ class Poseblock():
         
 
 if __name__ == "__main__":
-    nh = rospy.init_node("slave_filter")
+    nh = rospy.init_node("idle_filter")
     param_config = utils.read_param(robot_name, robot_name)
     
     # clean dyna parameters
@@ -76,7 +71,7 @@ if __name__ == "__main__":
         rospy.delete_param('DRIVE_UNITS')
     
     _SEQ_OF_JOINTNAME = param_config['SequenceOfJoints']
-    _RATE = param_config['Rates']['slave']
+    _RATE = param_config['Rates']['idle']
     
     Spose = Poseblock()
     

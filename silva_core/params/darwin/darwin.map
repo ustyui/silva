@@ -1,0 +1,16 @@
+------config---------
+robotname	darwin
+driveunits	12
+------defaults-------
+1	j_shoulder_r	0
+2	j_shoulder_l	0
+3	j_pan	0
+4	j_tilt	0
+5	j_high_arm_l	1
+6	j_low_arm_l	0
+7	j_wrist_l	-0.2
+8	j_gripper_l	-1
+9	j_high_arm_r	1
+10	j_low_arm_r	0
+11	j_wrist_r	-0.2
+12	j_gripper_r	-1

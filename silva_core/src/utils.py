@@ -7,16 +7,15 @@ Utils
 """
 import rospy, rospkg, yaml
 import numpy as np
-_driveunits = 50
 
 #==============================================================================
 # LOAD PARAMS
 # read from .yaml file in /params folder
 # _name: filename, _pkg: from which package 
 #==============================================================================   
-def read_param(_name = 'ibuki', _pkg = 'silva_core'):
+def read_param(_name = 'ibuki', _filename = 'ibuki', _pkg = 'silva_core'):
     rospack = rospkg.RosPack()
-    param_path = rospack.get_path(_pkg)+'/params/'+_name+'.yaml'
+    param_path = rospack.get_path(_pkg)+'/params/'+_name+'/'+_filename+'.yaml'
     try:
         f = open(param_path, "r+")
         return yaml.load(f)
@@ -33,13 +32,13 @@ def read_param(_name = 'ibuki', _pkg = 'silva_core'):
     ## params_valuea: column 2 valuesb: column 3
     # --------------------------------------------------- #
 #==============================================================================        
-def load_map(_name = 'ibuki', _pkg = 'silva_core'):
+def load_map(_name = 'ibuki', _filename = 'ibuki', _pkg = 'silva_core'):
     params_valuea = []
     params_valueb = []
     
     # open the .map
     rospack = rospkg.RosPack()
-    mappath = rospack.get_path(_pkg)+'/params/'+_name+'.map'
+    mappath = rospack.get_path(_pkg)+'/params/'+_name+'/'+_filename+'.map'
 
     f = open(mappath)
     lines = f.readlines()
@@ -52,9 +51,9 @@ def load_map(_name = 'ibuki', _pkg = 'silva_core'):
         # delete tabs
         params_list = string_lines.split('\t')
         # get lists
-        params_valuea.append(int(params_list[2]))
+        params_valuea.append(float(params_list[2]))
         try:
-            params_valueb.append(int(params_list[3]))
+            params_valueb.append(float(params_list[3]))
         except IndexError:
             pass
             
@@ -86,7 +85,7 @@ def merge(_global_joint_now, _index = 3):
     _joint_send = []
     
     for them in range(len(_global_joint_now)):
-        _joint_send.append(str(_global_joint_now[them]).zfill(_index))
+        _joint_send.append(str(int(_global_joint_now[them])).zfill(_index))
     _message = _message.join(_joint_send)
     _message.replace(" ","")
     "check overflow"
@@ -98,11 +97,25 @@ def merge(_global_joint_now, _index = 3):
     
 #==============================================================================
 # SET ZEROS
-# 
+# NOTE: old function, wait to be deleted
 # set zero matrix
 #==============================================================================
-def set_zeros(_varname, nums = _driveunits):
-    # 50 is ibuki driveunits number
-    
+def set_zeros(_varname, nums):
+
     for _idx in range (0, nums):
         _varname.append(0)
+#TODO:
+#==============================================================================
+# SORTER
+# read the sequence of joints and sort name labeled message into a big one
+# _target: target _msg: message, _cutter: cutter, e.g. _SEQ_OF_JOINTNAME
+#==============================================================================   
+def sort_labeled(_target, _msg, _cutter):
+    
+    _cut = _cutter[_msg.name]
+    _payload = _msg.payload
+    
+    for _idx in range(0, len(_payload)):
+        _target[_cut*len(_payload)+_idx] = _payload[_idx]
+        
+    return _target

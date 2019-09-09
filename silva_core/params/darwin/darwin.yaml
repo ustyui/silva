@@ -1,0 +1,23 @@
+Config:
+  robotname: darwin
+  driveunits: 12
+  stacks: 4
+
+Rates:
+  auto: 30
+
+  broadcast: 2
+  mixer: 40
+  gui: 50
+  idle: 30
+  actuator: 50
+  feedback: 25
+  reflex: 30
+  slave: 30
+
+SequenceOfJoints:
+  neck: 0
+  arml: 1
+  armr: 2
+
+

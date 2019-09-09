@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     nh = rospy.init_node('Act_'+dev_name, anonymous = True)
     param_config = utils.read_param()
-    dyna_params = utils.read_param('dynamic_params')
+    dyna_params = utils.read_param('dyna_params_ibuki')
     
     _SEQ_OF_JOINTNAME = param_config['SequenceOfJoints']
     _RATE = param_config['Rates']['actuator']
@@ -112,8 +112,10 @@ if __name__ == "__main__":
     
     while not rospy.is_shutdown():
         embed_msg = utils.merge(Mbed_joint._payload)
+        # print embed_msg 
         if (embed_msg == 0):
             rospy.logfatal_once("Acutator: Encoded Embed Command Overflow : Code 11")
+            break
         try:
             motorsock.sendto(embed_msg, (_IP[dev_name], _PORT[dev_name]))
         except socket.error as error:
