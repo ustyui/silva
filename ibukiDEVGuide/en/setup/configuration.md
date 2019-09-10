@@ -95,7 +95,7 @@ A .yaml file is needed to save some important **static parameters** for a robot.
 * Control sequences, clocks,
 * etc.
 
-The format of .map file is as follows: (You can check the file in silva_core/params/darwin/darwin.yaml)<br>
+The format of .yaml file is as follows: (You can check the file in silva_core/params/darwin/darwin.yaml)<br>
 **Note:** Please name the file as yourrobotname.yaml
 ```
 Config:
@@ -142,9 +142,9 @@ For the node descriptions, see **system architecture**<bn>
 The dyna_param.yaml is used for saving the initial dynamic parameters for the robot.
 All of the parameters here can be changed and viewed dynamically by using rosparam command such as 
 `rosparam set` `rosparam get`
-**Note: The dyna_param is going to be updated when the software updates to a newer version. Keep watching for recent changes.**
+**Note: The dyna_params is going to be updated when the software updates to a newer version. Keep watching for recent changes.**
 
-The format of dyna_param.yaml file is as follows: (You can check the file in silva_core/params/darwin/dyna_params.yaml)<br>
+The format of dyna_params.yaml file is as follows: (You can check the file in silva_core/params/darwin/dyna_params.yaml)<br>
 ```
 JOINT_MASK_H: 63
 JOINT_MASK_L: 63
