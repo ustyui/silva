@@ -6,6 +6,8 @@ We try to keep these procedures simple, so that users could focus on designing h
 To make the procedure easy to understood, we use a opensource humanoid platform Darwin to illustrate how the configuration work.
 The demonstration of the robot body will be shown in gazebo simulator, as a large-community robot simulator.
 
+The configuration includes 4 steps, that you need to create 4 config files by your self. As follows:
+
 ## 1. Create a .map init file
 By adapting silva to different robot interfaces a .map file is needed to tell silva that what should be the robot's **initial pose** is.<br>
 It means that users use this file to initialzie input values which can make the robot show a human-liked static posture.<br>
@@ -141,7 +143,7 @@ All of the parameters here can be changed and viewed dynamically by using rospar
 `rosparam set` `rosparam get`
 **Note: The dyna_param is going to be updated when the software updates to a newer version. Keep watching for recent changes.**
 
-It includes:
+The format of dyna_param.yaml file is as follows: (You can check the file in silva_core/params/darwin/dyna_params.yaml)<br>
 ```
 JOINT_MASK_H: 63
 JOINT_MASK_L: 63
@@ -154,7 +156,12 @@ CUR_OUT_MASK: 0
 ```
 
 **JOINT_MASK_H** and **JOINT_MASK_L**: The masks in binary number, of masking the joints if it is needed.
-
+<p align="center">
+  <img width="500" src="/ibukiDEVGuide/assets/images/Darwin/mask.png">
+</p>
+If the mask is set to 1, the masked output = joint input;<bn>
+If the mask is set to 0, the masked output = 0.
+In this case, **JOINT_MASK_H** is 63(1111111) and **JOINT_MASK_L** is 63(1111111).
 
 
 **WEIGHT_HW_ADJUST":** If the system is using hardware interface to adjust weights. e.g.: a mixer, a joystick.<bn>
@@ -165,5 +172,3 @@ CUR_OUT_MASK: 0
 **WEIGHT_REFLEX:** Weight of Reflex node. vary from 0 to 1.<bn>
 **WEIGHT_SLAVE:** Weight of Slave node. vary from 0 to 1.<bn>
 **WEIGHT_AUTO:** Weight of Auto node. vary from 0 to 1.<bn>
-
-
