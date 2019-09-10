@@ -6,7 +6,8 @@ We try to keep these procedures simple, so that users could focus on designing h
 To make the procedure easy to understood, we use a opensource humanoid platform Darwin to illustrate how the configuration work.
 The demonstration of the robot body will be shown in gazebo simulator, as a large-community robot simulator.
 
-The configuration includes 4 steps, that you need to create 4 config files by your self. As follows:
+The configuration includes 4 steps, that you need to create 4 config files by your self. As follows.<br>
+When reading this page, if you have any problems of system architecture, see [System architecture](en/concept/architecture.md).
 
 ## 1. Create a .map init file
 By adapting silva to different robot interfaces a .map file is needed to tell silva that what should be the robot's **initial pose** is.<br>
