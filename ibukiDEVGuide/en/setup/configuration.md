@@ -25,7 +25,7 @@ In Darwin the robot **default morphology** shows like this:
 In silva, as the system is used to make human-liked motion behaviors,
 in the beginning, this file is used for silva to initialize the robot.
 
-The format of .map file is as follows: (You can check the file in silva_core/params/darwin.map)<br>
+The format of .map file is as follows: (You can check the file in silva_core/params/darwin/darwin.map)<br>
 **Note:** Please name the file as yourrobotname.map
 ```
 ------config----------
@@ -43,7 +43,8 @@ driveunits  numberofdofs
 ```
 **robotname** is the name of your robot, it is suggested to use all lower case letters.
 The robotname variable will help silva to identify the robot and find other config files for the system.<br>
-**driveunits** is the number of degrees of freedom(DoFs) of the robot.
+**driveunits** is the number of degrees of freedom(DoFs) of the robot. 
+**Please make the driveunits as even number.** If for your robot has an odd driveunits, please set an extra null joint.
 In Darwin robot, there are 12 DoFs for silva to drive.<br>
 **defaults**
 The format of defaults are written as below:
@@ -60,8 +61,8 @@ The **init file** will finally make the robot posture as below (with the help of
 
 ## 2. Create a .map limit file
 In silva, the joint position of the robot will be limited by controlling the output of silva.
-The format of .map limit file is as follows: (Also check it in silva_core/params/darwin_limit.map)<br>
-**Note:** Please name the file as limit_yourrobotname.map
+The format of .map limit file is as follows: (Also check it in silva_core/params/darwin/limit.map)<br>
+**Note:** Please name the file as limit.map
 ```
 ------config----------
 robotname   yourrobotname
@@ -91,7 +92,7 @@ A .yaml file is needed to save some important **static parameters** for a robot.
 * Control sequences, clocks,
 * etc.
 
-The format of .map file is as follows: (You can check the file in silva_core/params/darwin.yaml)<br>
+The format of .map file is as follows: (You can check the file in silva_core/params/darwin/darwin.yaml)<br>
 **Note:** Please name the file as yourrobotname.yaml
 ```
 Config:
@@ -132,5 +133,37 @@ For the usage, see **message processing**.
 For the node descriptions, see **system architecture**<bn>
 **default**: If there is no correspondent node name in the Rate table, the node will adapte default value as the rate.
 **broadcast**: The broadcast message rate.
+  
+## 4. Create a dyna_param.yaml file
+
+The dyna_param.yaml is used for saving the initial dynamic parameters for the robot.
+All of the parameters here can be changed and viewed dynamically by using rosparam command such as 
+`rosparam set` `rosparam get`
+**Note: The dyna_param is going to be updated when the software updates to a newer version. Keep watching for recent changes.**
+
+It includes:
+```
+JOINT_MASK_H: 63
+JOINT_MASK_L: 63
+WEIGHT_HW_ADJUST: 1
+WEIGHT_IDLE: 0
+WEIGHT_REFLEX: 0
+WEIGHT_SLAVE: 1
+WEIGHT_AUTO: 0
+CUR_OUT_MASK: 0
+```
+
+**JOINT_MASK_H** and **JOINT_MASK_L**: The masks in binary number, of masking the joints if it is needed.
+
+
+
+**WEIGHT_HW_ADJUST":** If the system is using hardware interface to adjust weights. e.g.: a mixer, a joystick.<bn>
+0: Not using hardware<bn>
+1: Use a mixer
+  
+**WEIGHT_IDLE:** Weight of Idle node. vary from 0 to 1. <bn>
+**WEIGHT_REFLEX:** Weight of Reflex node. vary from 0 to 1.<bn>
+**WEIGHT_SLAVE:** Weight of Slave node. vary from 0 to 1.<bn>
+**WEIGHT_AUTO:** Weight of Auto node. vary from 0 to 1.<bn>
 
 
