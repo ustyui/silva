@@ -158,7 +158,7 @@ CUR_OUT_MASK: 0
 
 **JOINT_MASK_H** and **JOINT_MASK_L**: The masks in binary number, of masking the joints if it is needed.
 <p align="center">
-  <img width="500" src="/ibukiDEVGuide/assets/images/Darwin/mask.png">
+  <img width="800" src="/ibukiDEVGuide/assets/images/Darwin/mask.png">
 </p>
 If the mask is set to 1, the masked output = joint input;<bn>
 If the mask is set to 0, the masked output = 0.
