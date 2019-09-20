@@ -1,0 +1,18 @@
+------config----------
+robotname   commu_with_mobility
+driveunits  14
+------defaults--------
+0	weist_pitch	0
+1	weist_yaw	0
+2	arm_l_pitch	-90
+3	arm_l_roll	0
+4	arm_r_pitch	-90
+5	arm_r_roll	0
+6	neck_pitch	0
+7	neck_roll	0
+8	neck_yaw	0
+9	eye_pitch	0
+10	eye_l_yaw	0
+11	eye_r_yaw	0
+12	eyeblink	1
+13	mouth	6

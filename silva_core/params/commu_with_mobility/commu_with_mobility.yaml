@@ -1,0 +1,19 @@
+Config:
+  robotname: commu_with_mobility
+  driveunits: 14
+  stacks: 14
+
+Rates:
+  auto: 30
+
+  broadcast: 2
+  mixer: 40
+  gui: 50
+  idle: 30
+  actuator: 50
+  feedback: 25
+  reflex: 30
+  slave: 30
+
+SequenceOfJoints:
+  wholebody: 0
