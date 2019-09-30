@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+
+	<node name="idling_l" pkg="silva_core" type="tanh.py" args="wholebody commu_with_mobility" output="screen"/>
+
+
+</launch>
