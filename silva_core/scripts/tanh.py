@@ -16,16 +16,18 @@ from numpy import random as rd
 from math import *
 import yaml, sys
 
+# env variables
+
+dev_name = sys.argv[1]
+robot_name = sys.argv[2]
+
 # read params
 rospack = rospkg.RosPack()
-param_path = rospack.get_path('ibuki_extra')+'/params/mask_rsigmoid.yaml'
+param_path = rospack.get_path('silva_core')+'/params/'+robot_name+'/mask_rsigmoid.yaml'
 f = open(param_path, "r+")
 param_config = yaml.load(f)
 
-# env variables
 _RATE = param_config['Rate']
-dev_name = sys.argv[1]
-
 params_dev = param_config[dev_name]
 WEIGHT_AMP = param_config[dev_name]['enable']
 

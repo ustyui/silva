@@ -2,7 +2,7 @@
 
 import rospy
 from darwin_gazebo.darwin import Darwin
-from silva_beta.msg import Evans
+from silva_core.msg import Evans
 
 dev_name = 'darwin'
 
@@ -46,7 +46,7 @@ if __name__=="__main__":
     
     joint = Joint(dev_name)
     
-    sub = rospy.Subscriber('/silva/joint_local/fusion', Evans, callback, joint)
+    sub = rospy.Subscriber('/silva/joint_local/mixer', Evans, callback, joint)
     darwin=Darwin()
     
     motion_dict = {'j_shoulder_r':0,
