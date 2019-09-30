@@ -1,0 +1,6 @@
+------config---------
+robotname	worm
+driveunits	2
+------defaults-------
+1	worm	-3	3
+2	null	-3	3

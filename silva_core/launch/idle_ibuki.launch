@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+
+	<node name="idling_n" pkg="silva_core" type="tanh.py" args="neck ibuki" output="screen"/>
+	<node name="idling_l" pkg="silva_core" type="tanh.py" args="arml ibuki" output="screen"/>
+	<node name="idling_r" pkg="silva_core" type="tanh.py" args="armr ibuki" output="screen"/>
+
+	<node name="idling_h" pkg="silva_core" type="tanh.py" args="hip ibuki" output="screen"/>
+
+</launch>

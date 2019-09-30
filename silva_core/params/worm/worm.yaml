@@ -1,0 +1,21 @@
+Config:
+  robotname: worm
+  driveunits: 2
+  stacks: 2
+
+Rates:
+  auto: 30
+
+  broadcast: 2
+  mixer: 40
+  gui: 50
+  idle: 30
+  actuator: 50
+  feedback: 25
+  reflex: 30
+  slave: 30
+
+SequenceOfJoints:
+  world: 0
+
+

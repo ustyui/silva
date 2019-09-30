@@ -22,6 +22,7 @@ from sensor_msgs.msg import Joy
 
 param_config = utils.read_param()
 
+driveunits = param_config['Config']['driveunits']
 seq_of_jointname = param_config['SequenceOfJoints']
 _RATE = param_config['Rates']['gui']
 dev_name = param_config['Config']['robotname']
@@ -54,7 +55,7 @@ class QtPose(object):
         # open the .map
         rospack = rospkg.RosPack()
         
-        mappath = rospack.get_path('silva_core')+'/params/'+_which+'.map'
+        mappath = rospack.get_path('silva_core')+'/params/'+_which+'/'+_which+'.map'
         f = open(mappath)
         lines = f.readlines()
         f.close()
@@ -85,8 +86,8 @@ class QtPose(object):
         
         
         # initialize attributes
-        utils.set_zeros(self._default)
-        utils.set_zeros(self._payload)
+        utils.set_zeros(self._default, driveunits)
+        utils.set_zeros(self._payload, driveunits)
         self._pub_msg.payload = self._default
     
     def start(self):
@@ -102,7 +103,7 @@ def opt_pub(rate, pub, msg, run_event):
     while run_event.is_set() and not rospy.is_shutdown():
         # make the message
         msg.header.stamp = rospy.Time.now()
-        msg.seq = 3
+        msg.level = 3
         msg.name = 'slave'
         msg.msgid = 1
         # payload set by main function        
@@ -118,7 +119,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(parent)
         # decoration
         rospack = rospkg.RosPack()
-        self.picpath = rospack.get_path('silva_beta')+'/src/assets/logo.png'
+        self.picpath = rospack.get_path('silva_core')+'/src/assets/logo.png'
         
         # object init
         self.sld = []        
@@ -130,13 +131,13 @@ class MainWindow(QMainWindow):
         # init labels
         self.fb_value = [] # feedback value buffer
 
-        utils.set_zeros(self.sld)
-        utils.set_zeros(self.sldh)
-        utils.set_zeros(self.sldl)
-        utils.set_zeros(self.sldn)
-        utils.set_zeros(self.sldr)
-        utils.set_zeros(self.labels)
-        utils.set_zeros(self.fb_value)
+        utils.set_zeros(self.sld, driveunits)
+        utils.set_zeros(self.sldh, driveunits)
+        utils.set_zeros(self.sldl, driveunits)
+        utils.set_zeros(self.sldn, driveunits)
+        utils.set_zeros(self.sldr, driveunits)
+        utils.set_zeros(self.labels, driveunits)
+        utils.set_zeros(self.fb_value, driveunits)
 
         
         self.progress = [0,0,0,0] 
@@ -144,7 +145,7 @@ class MainWindow(QMainWindow):
         # expressions
         self.expression = []
         # obtain expressions
-        param_config = utils.read_param('momentary_motion','ibuki_extra')
+        param_config = utils.read_param(dev_name, 'momentary_motion')
         self.expression = param_config['Expression']
         
         self.index =0
@@ -156,8 +157,8 @@ class MainWindow(QMainWindow):
         self.pub_s = rospy.Publisher('/silva/speech_global/jp', String, queue_size=10)
         
         # get minimum, maximum, and default
-        self.default, blank = utils.load_map('ibuki')
-        min_v, max_v = utils.load_map('limit')
+        self.default, blank = utils.load_map(dev_name, 'ibuki')
+        min_v, max_v = utils.load_map(dev_name, 'limit')
         self.min_rel = []
         self.max_rel = []
         
@@ -181,7 +182,7 @@ class MainWindow(QMainWindow):
         self.state = [0.0, 0.0, 1.0, 0.0]
         
         # yaml params
-        self.param_config = utils.read_param('gui_config')
+        self.param_config = utils.read_param(dev_name, 'gui_config')
         
         self.table_widget = MyTableWidget(self)
         
@@ -392,9 +393,9 @@ class MainWindow(QMainWindow):
             self.sld[i].setValue(0)
     def on_lookaround(self):
         print('Look around.')
-        os.system('rosrun silva_beta HSM_csv.py lookaround')
+        os.system('rosrun silva_core HSM_csv.py lookaround')
     def on_wavehand(self):
-        os.system('rosrun silva_beta HSM_csv.py wavehand')
+        os.system('rosrun silva_core HSM_csv.py wavehand')
         
     def on_happiness(self):
         print('Happiness.')
@@ -516,10 +517,10 @@ class ButtomWidget(QWidget):
         self.current_values = []
         self.cur_value = [] # current value feedback
         
-        utils.set_zeros(self.cur_value)
+        utils.set_zeros(self.cur_value, driveunits)
         
-        utils.set_zeros(self.current_labels)
-        utils.set_zeros(self.current_values)
+        utils.set_zeros(self.current_labels, driveunits)
+        utils.set_zeros(self.current_values, driveunits)
         
         
         # Create Motion tab

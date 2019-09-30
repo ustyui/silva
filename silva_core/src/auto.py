@@ -26,14 +26,14 @@ class Poseblock():
         self.subload = [[]]*len(topics.auto) 
         
         while not rospy.is_shutdown():
-            if rospy.has_param('DRIVE_UNITS'):
+            if rospy.has_param(robot_name+'/DRIVE_UNITS'):
                 break
             rospy.sleep(0.1)
             rospy.loginfo("Waiting for dynamic parameters to be updated...")
         rospy.loginfo("Parameters updated.")
 
         for i in range(len(self.subload)):
-            self.subload[i] = [0] * rospy.get_param('DRIVE_UNITS')
+            self.subload[i] = [0] * rospy.get_param(robot_name+'/DRIVE_UNITS')
         
         for i in range(0, len(topics.auto)):
             
@@ -65,10 +65,6 @@ class Poseblock():
 if __name__ == "__main__":
     nh = rospy.init_node("auto_filter")
     param_config = utils.read_param(robot_name, robot_name)
-    
-    # clean dyna parameters
-    if rospy.has_param('DRIVE_UNITS'):
-        rospy.delete_param('DRIVE_UNITS')
     
     _SEQ_OF_JOINTNAME = param_config['SequenceOfJoints']
     _RATE = param_config['Rates']['auto']

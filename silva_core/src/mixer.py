@@ -154,8 +154,6 @@ if __name__ == "__main__":
     if (param_config == 0):
         rospy.logfatal("Mixer: Fail to load robot parameters. Check /params folder to ensure the yaml file are correctly set. Code 10")
     # clean dyna parameters
-    if rospy.has_param('DRIVE_UNITS'):
-        rospy.delete_param('DRIVE_UNITS')
     
     # static parameters
     dev_name = param_config['Config']['robotname']
@@ -173,7 +171,7 @@ if __name__ == "__main__":
     rospy.set_param('WEIGHT_REFLEX', dyna_params['WEIGHT_REFLEX'])
     rospy.set_param('WEIGHT_SLAVE', dyna_params['WEIGHT_SLAVE'])
     rospy.set_param('WEIGHT_AUTO', dyna_params['WEIGHT_AUTO'])
-    rospy.set_param('DRIVE_UNITS', _DRIVEUNITS)
+    rospy.set_param(robot_name+'/DRIVE_UNITS', _DRIVEUNITS)
     
     Mbus = Mixer(dev_name)
     rospy.loginfo("Silva Core Mixer Rate at "+str(_RATE)+"Hz OK")

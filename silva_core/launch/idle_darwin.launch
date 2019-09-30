@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+
+	<node name="idling_n" pkg="silva_core" type="tanh.py" args="neck darwin" output="screen"/>
+	<node name="idling_l" pkg="silva_core" type="tanh.py" args="arml darwin" output="screen"/>
+	<node name="idling_r" pkg="silva_core" type="tanh.py" args="armr darwin" output="screen"/>
+
+
+</launch>
