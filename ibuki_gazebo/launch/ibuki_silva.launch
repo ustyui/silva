@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+
+   <param name="robot_description" textfile="$(find ibuki_description)/urdf/ibuki.urdf" />  
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="worlds/empty.world"/>
+    <arg name="paused" value="true"/>
+    
+  </include>
+  
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find ibuki_description)/urdf/ibuki.urdf -urdf -model ibuki -z 0.3417" />
+
+  <include file="$(find ibuki_control)/launch/ibuki_control.launch"/>
+
+  <include file="$(find silva_core)/launch/core_ibuki.launch"/>
+
+  <include file="$(find silva_core)/launch/idle_ibuki.launch"/>
+
+  <node name="drive_interface" pkg="ibuki_gazebo" type="tester.py"/>
+
+</launch>
