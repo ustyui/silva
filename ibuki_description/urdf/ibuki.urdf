@@ -1,0 +1,894 @@
+<?xml version="1.0" ?>
+<robot name="ibuki_robot">
+
+<link name="base">
+	<inertial>
+		<origin xyz="0, 0, 0" />
+		<mass value="10.0"/>
+		<inertia ixx="0.12202839"  ixy="-0.0020812626"  ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
+	</inertial>
+	<visual>
+		<origin xyz="-0.02 0 -0.17" rpy="0 0 0" />
+		<geometry>
+			<!--box size="0.5 0.5 0.6"/-->
+			<mesh filename="package://ibuki_description/meshes/lower_body.stl"  scale="1 1 1"/>
+		</geometry>
+		<material name="FlatBlack">
+			<color rgba="0.20 0.20 0.20 1.0"/>
+		</material>
+	</visual>
+    <collision>
+      <geometry>
+      	<box size="0.58 0.47 0.33"/>
+<!--         <mesh filename="package://ibuki_description/meshes/lower_body.stl"  scale="1 1 1"/> -->
+      </geometry>
+    </collision>
+
+	<gazebo reference="body">
+  		<material>Gazebo/FlatBlack</material>
+	</gazebo>
+</link>
+
+<link name="lower_body">
+	<inertial>
+		<origin xyz="0, 0, 0" />
+		<mass value="10.0"/>
+		<inertia ixx="0.12202839"  ixy="-0.0020812626"  ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
+	</inertial>
+	<visual>
+		<origin xyz="-0.02 0 -0.25" rpy="0 0 0" />
+		<geometry>
+			<!--box size="0.5 0.5 0.6"/-->
+			<mesh filename="package://ibuki_description/meshes/linear.stl"  scale="1 1 1"/>
+		</geometry>
+		<material name="Grey">
+			<color rgba="0.20 0.20 0.20 1.0"/>
+		</material>
+	</visual>
+    <collision>
+      <geometry>
+      	<box size="0.26 0.24 0.56"/>
+<!--         <mesh filename="package://ibuki_description/meshes/lower_body.stl"  scale="1 1 1"/> -->
+      </geometry>
+    </collision>
+</link>
+
+<link name="hip_pitch">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="4.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 -0.05" rpy="0 0 0" />
+		<geometry>
+<!-- 			<box size="0.3 0.3 0.1" /> -->
+			<mesh filename="package://ibuki_description/meshes/hip_p.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.05 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.15 0.15 0.05" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="hip_roll">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="4.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 -0.015" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.28 0.28 0.1" /> -->
+			<mesh filename="package://ibuki_description/meshes/hip_r.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.05 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="hip_yaw">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.5"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.05" rpy="0 0 0" />
+		<geometry>
+<!-- 			<box size="0.2 0.2 0.3" /> -->
+			<mesh filename="package://ibuki_description/meshes/hip_y.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05" />
+      </geometry>
+    </collision>
+</link>
+
+
+<link name="upper_body">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.5"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0" rpy="0 0 0" />
+		<geometry>
+<!-- 			<box size="0.2 0.2 0.3" /> -->
+			<mesh filename="package://ibuki_description/meshes/upper_body.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.05 0 0.15" rpy="0 0 0" />
+      <geometry>
+        <box size="0.15 0.15 0.24" />
+      </geometry>
+    </collision>
+</link>
+
+
+<link name="neck_roll">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.03" rpy="0 0 0" />
+		<geometry>
+			<box size="0.05 0.05 0.02" />
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.05 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="neck_pitch">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.05" rpy="0 0 0" />
+		<geometry>
+			<box size="0.05 0.05 0.02" />			
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.05 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="head">
+	<inertial>
+		<origin xyz="0 0 0.2"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.15 0.15 0.15" /> -->
+			<mesh filename="package://ibuki_description/meshes/head.dae"  scale="0.1 0.1 0.1"/>
+		</geometry>
+<!-- 		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material> -->
+	</visual>
+    <collision>
+      <origin xyz="-0.05 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.15 0.15 0.15" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="shoulderl_pitch">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.25 0.1 0.25" /> -->
+			<mesh filename="package://ibuki_description/meshes/shoulderl_pitch_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="0 -0.05 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.5 0.5 0.5" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="shoulderr_pitch">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+<!-- 			<box size="0.25 0.1 0.25" /> -->
+			<mesh filename="package://ibuki_description/meshes/shoulderr_pitch_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="0 -0.05 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="arml_roll">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.2 0.2 0.1" /> -->
+			<mesh filename="package://ibuki_description/meshes/arml_roll_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="0 -0.05 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="armr_roll">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+<!-- 			<box size="0.2 0.2 0.1" /> -->
+			<mesh filename="package://ibuki_description/meshes/armr_roll_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="0 -0.05 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="arml_yaw">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.01 0.01 0.4" /> -->
+			<mesh filename="package://ibuki_description/meshes/arml_yaw_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.05 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.25" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="armr_yaw">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.01 0.01 0.4" /> -->
+			<mesh filename="package://ibuki_description/meshes/armr_yaw_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.05 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.25" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="arml_pitch">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.1 0.1 0.1" /> -->
+			<mesh filename="package://ibuki_description/meshes/arml_pitch_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="armr_pitch">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.1 0.1 0.1" /> -->
+			<mesh filename="package://ibuki_description/meshes/armr_pitch_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="wristl_yaw">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.1 0.1 0.3" /> -->
+			<mesh filename="package://ibuki_description/meshes/wristl_yaw_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.25" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="wristr_yaw">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.01 0.01 0.3" /> -->
+			<mesh filename="package://ibuki_description/meshes/wristr_yaw_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.25" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="wristl_roll">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+			<!-- <box size="0.15 0.05 0.2" /> -->
+			<mesh filename="package://ibuki_description/meshes/handl_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.05 0 0" rpy="0 0 0" />
+      <geometry>
+         <box size="0.1 0.05 0.1" />
+      </geometry>
+    </collision>
+</link>
+
+<link name="wristr_roll">
+	<inertial>
+		<origin xyz="0 0 0"/>
+		<mass value="0.1"/>
+		<inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+<!-- 			<box size="0.15 0.05 0.2" /> -->
+			<mesh filename="package://ibuki_description/meshes/handr_flat.stl"  scale="0.1 0.1 0.1"/>
+		</geometry>
+		<material name="Grey">
+			<color rbga="0.20 0.20 0.20 1.0" />
+		</material>
+	</visual>
+    <collision>
+      <origin xyz="-0.05 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.05 0.1" />
+      </geometry>
+    </collision>
+</link>
+	<joint name="linear" type="fixed">
+		<parent link="base"/>
+		<child link="lower_body"/>
+		<origin xyz="0 0 0.33" rpy="0 0 0" />
+		<axis xyz="0 1 0"/>
+		<limit effort="11.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>
+
+	<joint name="hip_p" type="revolute">
+		<parent link="lower_body"/>
+		<child link="hip_pitch"/>
+		<origin xyz="-0.02 0 0.18" rpy="0 0 0" />
+		<axis xyz="0 1 0"/>
+		<limit effort="11.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>
+
+	<joint name="hip_r" type="revolute">
+		<parent link="hip_pitch"/>
+		<child link="hip_roll"/>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<axis xyz="1 0 0"/>
+		<limit effort="11.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="hip_y" type="revolute">
+		<parent link="hip_roll"/>
+		<child link="hip_yaw"/>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<axis xyz="0 0 1"/>
+		<limit effort="11.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="hip_ry" type="fixed">
+		<parent link="hip_yaw"/>
+		<child link="upper_body"/>
+		<origin xyz="0 0 0.1" rpy="0 0 0" />
+		<axis xyz="0 0 1"/>
+		<limit effort="11.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="neck_r" type="revolute">
+		<parent link="upper_body"/>
+		<child link="neck_roll"/>
+		<origin xyz="0 0 0.23" rpy="0 0 0" />
+		<axis xyz="1 0 0"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="neck_p" type="revolute">
+		<parent link="neck_roll"/>
+		<child link="neck_pitch"/>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<axis xyz="0 1 0"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="neck_y" type="revolute">
+		<parent link="neck_pitch"/>
+		<child link="head"/>
+		<origin xyz="0 0 0.05" rpy="0 0 0" />
+		<axis xyz="0 0 1"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="shoulderl_p" type="revolute">
+		<parent link="upper_body"/>
+		<child link="shoulderl_pitch"/>
+		<origin xyz="-0.005 0.12 0.194" rpy="0 0 0" />
+		<axis xyz="0.5 1.4 -0.5"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="shoulderr_p" type="revolute">
+		<parent link="upper_body"/>
+		<child link="shoulderr_pitch"/>
+		<origin xyz="-0.005 -0.12 0.194" rpy="0 0 0" />
+		<axis xyz="-0.5 1.4 0.5"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="arml_r" type="revolute">
+		<parent link="shoulderl_pitch"/>
+		<child link="arml_roll"/>
+		<origin xyz="0.012 0.0241 -0.0155" rpy="0 0 0" />
+		<axis xyz="-1 0.66 0.66"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="armr_r" type="revolute">
+		<parent link="shoulderr_pitch"/>
+		<child link="armr_roll"/>
+		<origin xyz="0.012 -0.0241 -0.0155" rpy="0 0 0" />
+		<axis xyz="1 0.66 -0.66"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="arml_y" type="revolute">
+		<parent link="arml_roll"/>
+		<child link="arml_yaw"/>
+		<origin xyz="0.007 0.023 -0.03" rpy="0 0 0" />
+		<axis xyz="0.125 0.288 -1"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="armr_y" type="revolute">
+		<parent link="armr_roll"/>
+		<child link="armr_yaw"/>
+		<origin xyz="0.007 -0.023 -0.03" rpy="0 0 0" />
+		<axis xyz="-0.125 0.288 1"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>	
+
+	<joint name="arml_p" type="revolute">
+		<parent link="arml_yaw"/>
+		<child link="arml_pitch"/>
+		<origin xyz="0.025 0.05 -0.16" rpy="0 0 0" />
+		<axis xyz="-0.4 1 0.6"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>
+
+	<joint name="armr_p" type="revolute">
+		<parent link="armr_yaw"/>
+		<child link="armr_pitch"/>
+		<origin xyz="0.025 -0.05 -0.16" rpy="0 0 0" />
+		<axis xyz="0.4 1 -0.6"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>
+
+	<joint name="wristl_y" type="revolute">
+		<parent link="arml_pitch"/>
+		<child link="wristl_yaw"/>
+		<origin xyz="0.028 0.0315 -0.0245" rpy="0 0 0" />
+		<axis xyz="2.2 1.6 -1"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>
+
+	<joint name="wristr_y" type="revolute">
+		<parent link="armr_pitch"/>
+		<child link="wristr_yaw"/>
+		<origin xyz="0.028 -0.0315 -0.0245" rpy="0 0 0.01" />
+		<axis xyz="-2.2 1.6 1"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>
+
+	<joint name="wristl_r" type="revolute">
+		<parent link="wristl_yaw"/>
+		<child link="wristl_roll"/>
+		<origin xyz="0.11 0.085 -0.045" rpy="0 0 0" />
+		<axis xyz="4.89 4.21 9.50"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>
+
+	<joint name="wristr_r" type="revolute">
+		<parent link="wristr_yaw"/>
+		<child link="wristr_roll"/>
+		<origin xyz="0.11 -0.085 -0.045" rpy="0 0 0" />
+		<axis xyz="-4.89 4.21 -9.50"/>
+		<limit effort="2.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+	</joint>
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <robotNamespace>/ibuki</robotNamespace>
+    </plugin>
+  </gazebo>
+
+   <transmission name="t_hip_p">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="hip_p">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_hip_p">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_hip_r">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="hip_r">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_hip_r">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_hip_y">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="hip_y">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_hip_y">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_neck_r">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="neck_r">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_neck_r">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_neck_p">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="neck_p">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_neck_p">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_neck_y">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="neck_y">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_neck_y">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_shoulderl_p">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="shoulderl_p">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_shoulderl_p">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_shoulderr_p">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="shoulderr_p">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_shoulderr_p">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_arml_r">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arml_r">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_arml_r">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_armr_r">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="armr_r">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_armr_r">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_arml_y">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arml_y">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_arml_y">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_armr_y">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="armr_y">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_armr_y">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_arml_p">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arml_p">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_arml_p">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_armr_p">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="armr_p">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_armr_p">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_wristl_y">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wristl_y">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_wristl_y">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_wristr_y">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wristr_y">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_wristr_y">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_wristl_r">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wristl_r">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_wristl_r">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+   <transmission name="t_wristr_r">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wristr_r">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="m_wristr_r">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+</robot>

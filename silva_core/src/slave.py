@@ -59,7 +59,7 @@ class Poseblock():
             for i in range(1, len(mux)):
                 summux = summux + mux[i]
                 
-            print summux
+            # print summux
             # make message
             utils.make_message(self._pub_msg, 'slave', 1, 0, summux)
             self.pub.publish(self._pub_msg)

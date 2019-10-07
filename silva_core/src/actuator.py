@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     nh = rospy.init_node('Act_'+dev_name, anonymous = True)
     param_config = utils.read_param()
-    dyna_params = utils.read_param('dyna_params')
+    dyna_params = utils.read_param(dev_name, 'dyna_params')
     
     _SEQ_OF_JOINTNAME = param_config['SequenceOfJoints']
     _RATE = param_config['Rates']['actuator']

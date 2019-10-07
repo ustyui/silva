@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>ibuki_description</name>
+  <version>1.0.0</version>
+  <description>Descirbe ibuki</description>
+
+  <maintainer email="yu.shiqi@irl.sys.es.osaka-u.ac.jp">Shiqi</maintainer>
+
+
+  <license>BSD</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>

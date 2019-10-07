@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ibuki_control</name>
+  <version>0.0.0</version>
+  <description>The ibuki_control package</description>
+
+  <maintainer email="ustyui@todo.todo">ustyui</maintainer>
+
+  <license>TODO</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>ibuki_description</exec_depend>
+</package>

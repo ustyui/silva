@@ -1,0 +1,17 @@
+<launch>
+
+  <rosparam file="$(find ibuki_control)/config/ibuki_control.yaml" command="load"/>
+
+
+  <!-- load the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/ibuki" args="joint_state_controller hip_p_position_controller hip_r_position_controller hip_y_position_controller neck_r_position_controller neck_p_position_controller neck_y_position_controller shoulderl_p_position_controller shoulderr_p_position_controller arml_r_position_controller armr_r_position_controller arml_y_position_controller armr_y_position_controller arml_p_position_controller armr_p_position_controller wristl_y_position_controller wristr_y_position_controller wristl_r_position_controller wristr_r_position_controller"/>
+    
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/ibuki/joint_states" />
+  </node>
+
+</launch>
