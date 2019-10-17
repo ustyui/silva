@@ -10,7 +10,8 @@ from silva_core.msg import Evans
 from sensor_msgs.msg import Joy
 
 import numpy as np
-import utils, topics
+import modules.utils as utils
+import modules.topics as topics
 import sys
 
 robot_name = sys.argv[1]
@@ -42,7 +43,7 @@ class Poseblock():
     def channel_cb(self, msg, args): 
         instance = args
         # pass it as it is
-        if instance == 0 or instance == 1 or instance ==2:
+        if instance <=3 :
             self.subload[instance] = np.array(msg.payload)
         # sort labeled method
         else:

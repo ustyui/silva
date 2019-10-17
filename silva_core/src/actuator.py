@@ -8,7 +8,8 @@ Created on Thu Aug  1 13:30:09 2019
 """
 import rospy
 from silva_core.msg import Evans
-import utils, topics
+import modules.utils as utils
+import modules.topics as topics
 
 import socket, errno, sys, threading, os
 

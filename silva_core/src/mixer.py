@@ -12,7 +12,8 @@ from std_msgs.msg import Float32MultiArray
 from sensor_msgs.msg import Joy
 import sys, threading, yaml
 import numpy as np
-import utils, topics
+import modules.utils as utils
+import modules.topics as topics
 
 robot_name = sys.argv[1]
 
@@ -171,6 +172,7 @@ if __name__ == "__main__":
     rospy.set_param('WEIGHT_REFLEX', dyna_params['WEIGHT_REFLEX'])
     rospy.set_param('WEIGHT_SLAVE', dyna_params['WEIGHT_SLAVE'])
     rospy.set_param('WEIGHT_AUTO', dyna_params['WEIGHT_AUTO'])
+    rospy.set_param('ROBOT_NAME', dyna_params['ROBOT_NAME'])
     rospy.set_param(robot_name+'/DRIVE_UNITS', _DRIVEUNITS)
     
     Mbus = Mixer(dev_name)

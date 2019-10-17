@@ -7,8 +7,10 @@ Created on Wed Sep 25 17:16:43 2019
 @author: ustyui
 """
 import rospy
-from silva_core.msgmsg import Evans
-import utils, topics
+from silva_core.msg import Evans
+import modules.utils as utils
+import modules.topics as topics
+import sys
 
 dev_name = sys.argv[1]
 

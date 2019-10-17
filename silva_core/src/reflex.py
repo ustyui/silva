@@ -10,7 +10,8 @@ from silva_core.msg import Evans
 from sensor_msgs.msg import Joy
 
 import numpy as np
-import utils, topics
+import modules.utils as utils
+import modules.topics as topics
 import sys
 
 robot_name = sys.argv[1]
@@ -41,7 +42,10 @@ class Poseblock():
         
     def channel_cb(self, msg, args): 
         instance = args
-        self.subload[instance] = utils.sort_labeled(self.subload[instance], msg, _SEQ_OF_JOINTNAME)
+        if instance <=0 :
+            self.subload[instance] = np.array(msg.payload)
+        else:
+            self.subload[instance] = utils.sort_labeled(self.subload[instance], msg, _SEQ_OF_JOINTNAME)
         
     def start(self):
         rospy.loginfo("Silva reflex Rate at "+str(_RATE)+"Hz OK")

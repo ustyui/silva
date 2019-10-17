@@ -17,7 +17,8 @@ from silva_core.msg import Evans
 from std_msgs.msg import String, Float32MultiArray
 
 import numpy as np
-import utils, topics
+import modules.utils as utils
+import modules.topics as topics
 from sensor_msgs.msg import Joy
 
 param_config = utils.read_param()
