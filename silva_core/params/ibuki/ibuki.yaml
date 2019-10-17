@@ -1,7 +1,7 @@
 Config:
   robotname: ibuki
   driveunits: 50
-  tacks: 5
+  stacks: 5
 
 Rates:
   auto: 30
