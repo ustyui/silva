@@ -1,0 +1,14 @@
+Rate: 20
+
+wholebody:
+  enable: [1.5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+  threshold: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  periodlengthtrigger: 2
+  sinscope: 0.2
+  gotoduty: 0.2
+  tanhamp: 0.5
+  relupper: 1.05
+  rellower: -1.05
+  motionamp: 20
+
+
