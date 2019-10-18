@@ -26,6 +26,10 @@ To set angles to slave node, e.g.:
 ```
 XX.set_angles_to(angles, 2)
 ```
+
+Note: in this example, the messages are sent from the channel /silva/slave_local/ch99.
+ch99 channel is a channel with privilage that user can send commands directly to final output. (like interrupt)
+
 ### reset()
   ``reset channel 99 input.''
 ```
