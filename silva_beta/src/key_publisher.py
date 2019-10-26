@@ -14,6 +14,6 @@ if __name__ == '__main__':
     print("Publishing key strokes...")
     while not rospy.is_shutdown():
         if select.select([sys.stdin],[],[],0)[0] == [sys.stdin]:
-            key_pub.publish(sys.stdin.read[1])
+            key_pub.publish(sys.stdin.read(1))
         rate.sleep()
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_attr)

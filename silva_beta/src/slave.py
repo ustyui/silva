@@ -109,7 +109,7 @@ class poseblock():
             
     def hsm_cb(self, msg):
         
-        self._bias[4] = list(np.array(msg.payload))
+        self._bias[4] = list(2*np.array(msg.payload))
         
     def demo_cb(self, msg):
         
