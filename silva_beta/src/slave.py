@@ -4,6 +4,7 @@
 Created on Sun Jan  6 23:19:55 2019
 # Slave Motion
 # library succeed from Auto 
+# TODO: create a /demo channel
 
 @author: ustyui
 """
@@ -39,7 +40,7 @@ class poseblock():
         
         # global variables
         self._rel = []
-        self._bias = [[],[],[],[],[]]
+        self._bias = [[],[],[],[],[],[]]
         self._payload = []
         self._default = []
         self._gain = 1.0
@@ -58,6 +59,7 @@ class poseblock():
         self.sub_dec = rospy.Subscriber('/silva/slave_local/decision', Evans, self.decision_cb)
         self.sub_wlk = rospy.Subscriber('/silva/slave_local/walking', Evans, self.walking_cb)
         self.sub_hsm = rospy.Subscriber('/silva/slave_local/hsm', Evans, self.hsm_cb)
+        self.sub_dem = rospy.Subscriber('/silva/slave_local/demo', Evans, self.demo_cb)
         
         self.sub_default = rospy.Subscriber('/silva/joint_local/default', Evans, self.default_cb)
         self.sub_gain = rospy.Subscriber('/joy', Joy, self.joy_cb)
@@ -107,7 +109,11 @@ class poseblock():
             
     def hsm_cb(self, msg):
         
-        self._bias[4] = list(self._gain * np.array(msg.payload))
+        self._bias[4] = list(np.array(msg.payload))
+        
+    def demo_cb(self, msg):
+        
+        self._bias[5] = list(np.array(msg.payload))
         
     def default_cb(self, msg):
         # callback default
@@ -118,7 +124,7 @@ class poseblock():
     def set_msg_from_pos(self):
         
         mult_ch = np.array(self._bias)
-        self._rel = mult_ch[0] + mult_ch[1] + mult_ch[2]+ mult_ch[3] +mult_ch[4]
+        self._rel = mult_ch[0] + mult_ch[1] + mult_ch[2]+ mult_ch[3] +mult_ch[4]+mult_ch[5]
         
         self._payload = self._rel
         
