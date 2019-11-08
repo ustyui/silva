@@ -10,8 +10,8 @@ The equipment below is highly recommended:
   * with Ubuntu Linux 18.04 or later
 * A command center device:
   * with Ubuntu Linux 18.04 or later
-* A korg nanokontrol2 midi controller
-* A joystick game controller
+* A korg nanokontrol2 midi controller (optional)
+* A joystick game controller (optional)
   * PS4 game controller with wireless USB adapter
   * xbox360 standard game controller
 
