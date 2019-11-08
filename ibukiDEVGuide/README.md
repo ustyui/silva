@@ -12,12 +12,7 @@ This guide describes how to make the Silva operation system work on a humanoid r
 * Know [how the messages work](en/concept/workflow.md) in the system.
 * Know the usage of the [system functions](en/instruction/function_usage.md)
 * See [data format](https://github.com/ustyui/silva/blob/master/silva_beta/doc/data_input_format.md)
-
-## Introduction
-
-* 
-
-## Main functions
+* See how silva works on different andorids ([multi-robot-platform](en/instruction/multidev.md))
 
 ## Contributing
 
