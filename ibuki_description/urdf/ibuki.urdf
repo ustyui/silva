@@ -3,7 +3,7 @@
 
 <link name="base">
 	<inertial>
-		<origin xyz="0, 0, 0" />
+		<origin xyz="0 0 0" />
 		<mass value="10.0"/>
 		<inertia ixx="0.12202839"  ixy="-0.0020812626"  ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
 	</inertial>
@@ -31,7 +31,7 @@
 
 <link name="lower_body">
 	<inertial>
-		<origin xyz="0, 0, 0" />
+		<origin xyz="0 0 0" />
 		<mass value="10.0"/>
 		<inertia ixx="0.12202839"  ixy="-0.0020812626"  ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
 	</inertial>
