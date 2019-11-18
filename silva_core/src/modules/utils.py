@@ -119,3 +119,14 @@ def sort_labeled(_target, _msg, _cutter):
         _target[_cut*len(_payload)+_idx] = _payload[_idx]
         
     return _target
+
+#==============================================================================
+# XML format
+# add xml format to a astring
+#============================================================================== 
+def xml_format(tag):
+    if tag[0] != "<":
+        tag = "<" + tag
+    if tag[-1:] != ">":
+        tag += ">"
+    return tag
